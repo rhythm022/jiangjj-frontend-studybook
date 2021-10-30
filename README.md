@@ -17,6 +17,7 @@
 - 日常学习
   > 深入浅出Node.js
     - 2021.10.29 复习第04章 异步IO: [github](https://github.com/rhythm022/2020-learning/blob/master/2021-nodejs/Untitled.ipynb)    
+    - 2021.10.30 复习第05章 内存控制: [github](https://github.com/rhythm022/2020-learning/blob/master/2021-nodejs/Untitled.ipynb)    
   > 深入浅出Vue.js
     - 2021.10.29 速读第13章 全局API的实现原理: 纸面标注
   > 其他

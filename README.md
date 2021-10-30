@@ -8,7 +8,7 @@
 
 - Phase01 算法与数据结构
   > week01 排序
-   - 2021.10.29 selection-sort
+   - 2021.10.29 [selection-sort](https://github.com/rhythm022/jiangjj-frontend-studybook/blob/main/week01-sort/selection-sort.js)
 
 - 日常学习
   > 深入浅出Node.js

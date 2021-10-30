@@ -9,6 +9,10 @@
 - Phase01 算法与数据结构
   > week01 排序
    - 2021.10.29 [selection-sort](https://github.com/rhythm022/jiangjj-frontend-studybook/blob/main/week01-sort/selection-sort.js)
+   - 2021.10.30 [insertion-sort](https://github.com/rhythm022/jiangjj-frontend-studybook/blob/main/week01-sort)
+   、[shell-sort](https://github.com/rhythm022/jiangjj-frontend-studybook/blob/main/week01-sort)
+   、[quick-sort](https://github.com/rhythm022/jiangjj-frontend-studybook/blob/main/week01-sort)
+   、[bubble-sort](https://github.com/rhythm022/jiangjj-frontend-studybook/blob/main/week01-sort)
 
 - 日常学习
   > 深入浅出Node.js

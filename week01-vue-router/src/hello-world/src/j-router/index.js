@@ -1,8 +1,8 @@
 let Vue
 
 class VueRouter{
-    constructor(){
-
+    constructor(options){
+        this.options = options//先存起来整个
     }
 
     
@@ -10,7 +10,14 @@ class VueRouter{
 
 VueRouter.install = function(_Vue){
     Vue = _Vue
+    Vue.mixin({
+        beforeCreate(){// 每次实例化组件时/new Vue时执行
+            if(this.$options.router){//只在root组建配置上有router
+                Vue.prototype.$router = this.$options.router
 
+            }
+        }
+    })
     Vue.component('router-view',{
         render(h){
             return h('a','view') 

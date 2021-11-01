@@ -3,11 +3,11 @@ class Store{
     constructor(options){
         this._vm = new Vue({
             data:{
-                $$state:options.state//??? $$开头的，Vue不会做代理
+                $$state:options.state
             }
         })
 
-        console.log(this._vm)
+        console.log(this._vm.$$state)//$$开头的，Vue不会做代理
         setInterval(()=>{
             this.state.counter++
         },1000)

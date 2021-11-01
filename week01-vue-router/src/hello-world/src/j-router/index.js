@@ -3,6 +3,12 @@ let Vue
 class VueRouter{
     constructor(options){
         this.options = options//先存起来整个
+        this.current = window.location.hash.slice(1) || '/'
+
+        window.addEventListener('hashchange',()=>{
+            this.current = window.location.hash.slice(1)
+            console.log(this.current)
+        })
     }
 
     
@@ -20,7 +26,14 @@ VueRouter.install = function(_Vue){
     })
     Vue.component('router-view',{
         render(h){
-            return h('a','view') 
+            let component = null
+            const {current,options} = this.$router
+            console.log(current,options.routes)
+            const route = options.routes.find(r=>r.path === current)
+            if(route){
+                component = route.component
+            }
+            return h(component) 
         }
     })
     Vue.component('router-link',{
@@ -31,7 +44,7 @@ VueRouter.install = function(_Vue){
             }
         },
         render(){
-            return <a href={this.to}>{this.$slots.default}</a>
+            return <a href={'#' + this.to}>{this.$slots.default}</a>
         }
         // render(h){
         //     return h('a',{attrs:{

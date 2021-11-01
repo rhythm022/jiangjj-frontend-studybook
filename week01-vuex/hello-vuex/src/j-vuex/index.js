@@ -1,12 +1,24 @@
 let Vue
 class Store{
     constructor(options){
-        this.state = new Vue({
-            data:options.state
+        this._vm = new Vue({
+            data:{
+                $$state:options.state//??? $$开头的，Vue不会做代理
+            }
         })
+
+        console.log(this._vm)
         setInterval(()=>{
             this.state.counter++
         },1000)
+      
+     
+    }
+    get state(){
+        return this._vm._data.$$state
+    }
+    set state(_){
+        console.error('please use replaceState')
     }
 }
 

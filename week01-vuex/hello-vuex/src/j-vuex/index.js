@@ -4,6 +4,9 @@ class Store{
         this.state = new Vue({
             data:options.state
         })
+        setInterval(()=>{
+            this.state.counter++
+        },1000)
     }
 }
 

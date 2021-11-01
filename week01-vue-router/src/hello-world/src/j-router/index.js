@@ -3,7 +3,7 @@ let Vue
 class VueRouter{
     constructor(options){
         this.options = options//先存起来整个
-        this.current = window.location.hash.slice(1) || '/'
+        Vue.util.defineReactive(this,'current',window.location.hash.slice(1) || '/')
 
         window.addEventListener('hashchange',()=>{
             this.current = window.location.hash.slice(1)

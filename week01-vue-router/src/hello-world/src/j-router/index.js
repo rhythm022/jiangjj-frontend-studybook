@@ -23,11 +23,14 @@ VueRouter.install = function(_Vue){
                 type:String
             }
         },
-        render(h){
-            return h('a',{attrs:{
-                href:`#${this.to}`
-            }},this.$slots.default) 
+        render(){
+            return <a href={this.to}>{this.$slots.default}</a>
         }
+        // render(h){
+        //     return h('a',{attrs:{
+        //         href:`#${this.to}`
+        //     }},this.$slots.default) 
+        // }
     })
 }
 export default VueRouter

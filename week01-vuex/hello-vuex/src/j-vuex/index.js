@@ -1,7 +1,9 @@
 let Vue
 class Store{
     constructor(options){
-     
+        this.state = new Vue({
+            data:options.state
+        })
     }
 }
 

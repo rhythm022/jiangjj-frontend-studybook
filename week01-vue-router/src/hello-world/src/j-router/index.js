@@ -3,7 +3,7 @@ let Vue
 class VueRouter{
     constructor(options){
         this.options = options//先存起来整个
-        Vue.util.defineReactive(this,'current',window.location.hash.slice(1) || '/')
+        Vue.util.defineReactive(this,'current',window.location.hash.slice(1) || '/')// 强依赖于Vue，所以只能在Vue生态使用
 
         window.addEventListener('hashchange',()=>{
             this.current = window.location.hash.slice(1)

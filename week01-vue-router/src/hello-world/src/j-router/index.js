@@ -17,8 +17,16 @@ VueRouter.install = function(_Vue){
         }
     })
     Vue.component('router-link',{
+        props:{
+            to:{
+                require:true,
+                type:String
+            }
+        },
         render(h){
-            return h('a',this.$slots.default) 
+            return h('a',{attrs:{
+                href:`#${this.to}`
+            }},this.$slots.default) 
         }
     })
 }

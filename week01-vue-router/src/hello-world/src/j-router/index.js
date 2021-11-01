@@ -18,7 +18,7 @@ VueRouter.install = function(_Vue){
     })
     Vue.component('router-link',{
         render(h){
-            return h('a','link') 
+            return h('a',this.$slots.default) 
         }
     })
 }

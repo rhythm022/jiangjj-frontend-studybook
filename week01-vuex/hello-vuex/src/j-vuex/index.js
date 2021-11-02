@@ -2,6 +2,7 @@ let Vue
 class Store{
     constructor(options){
         this._mutations = options.mutations
+        this._actions = options.actions
         this._vm = new Vue({
             data:{
                 $$state:options.state
@@ -9,10 +10,8 @@ class Store{
         })
 
         console.log(this._vm.$$state)//$$开头的，Vue不会做代理
-        setInterval(()=>{
-            this.state.counter++
-        },1000)
-      
+      this.commit = this.commit.bind(this)
+      this.dispatch = this.dispatch.bind(this)
      
     }
     get state(){
@@ -30,6 +29,17 @@ class Store{
         }
 
         mutation(this.state,payload)
+    }
+
+    dispatch(type,payload){
+        const action = this._actions[type]
+
+        if(!action){
+            console.error('不存在该action')
+            return 
+        }
+
+        action(this,payload)
     }
 }
 

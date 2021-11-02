@@ -23,9 +23,23 @@ export function observe(obj){//以对象为起点做响应式
     if(typeof obj !== "object" || obj === null){
         return obj
     }
-    Object.keys(obj).forEach(key=>defineReactive(obj,key,obj[key]))
+    new Observer(obj)//observe时new Observer：准备为数组做响应式
 }
 
+class Observer{
+    constructor(obj){
+        if(Array.isArray(obj)){
+            //todo
+        }else{
+            this.walk(obj)
+        }
+    }
+
+    walk(obj){
+        Object.keys(obj).forEach(key=>defineReactive(obj,key,obj[key]))
+
+    }
+}
 // const foo={
 //     a:{
 //         b:1

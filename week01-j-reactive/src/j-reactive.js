@@ -1,4 +1,4 @@
-function defineReactive(obj,key,value){
+function defineReactive(obj,key,value){//以属性为起点做响应式
     observe(value)
 
     Object.defineProperty(obj,key,{
@@ -23,7 +23,7 @@ const foo={
         b:1
     }
 }
-function observe(obj){//observe以对象为单位为属性做defineReactive
+function observe(obj){//以对象为起点做响应式
     if(typeof obj !== "object" || obj === null){
         return obj
     }
@@ -35,3 +35,11 @@ foo.a = {
     newB:1
 }
 foo.a.newB
+
+ function set(obj,key,value){//为新增属性单独做响应式
+     defineReactive(obj,key,value)
+ }
+
+ set(foo,'other',1)
+
+ foo.other

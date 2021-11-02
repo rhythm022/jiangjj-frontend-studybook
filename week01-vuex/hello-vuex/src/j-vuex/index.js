@@ -1,6 +1,7 @@
 let Vue
 class Store{
     constructor(options){
+        this._mutations = options.mutations
         this._vm = new Vue({
             data:{
                 $$state:options.state
@@ -19,6 +20,16 @@ class Store{
     }
     set state(_){
         console.error('please use replaceState')
+    }
+    commit(type,payload){
+        const mutation = this._mutations[type]
+
+        if(!mutation){
+            console.error('不存在该mutation')
+            return 
+        }
+
+        mutation(this.state,payload)
     }
 }
 

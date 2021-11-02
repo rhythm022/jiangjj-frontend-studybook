@@ -6,6 +6,7 @@
 
     <p @click="$store.commit('add')" style="cursor:pointer">{{$store.state.counter}}</p>
     <p @click="$store.dispatch('add')" style="cursor:pointer">async:{{$store.state.counter}}</p>
+    <p>async:{{$store.getters.doubleCounter}}</p>
     </div>
     <router-view/>
   </div>

@@ -3,10 +3,30 @@ class Store{
     constructor(options){
         this._mutations = options.mutations
         this._actions = options.actions
+        this._getters = options.getters
+
+        this.getters = {}
+        const computed = {}
+        Object.keys(this._getters).forEach(key=>{
+            computed[key] = ()=> {
+                const fn = this._getters[key]
+
+                return fn(this.state)
+            }
+
+            Object.defineProperty(this.getters,key,{
+                get:()=>{
+                    return this._vm[key]// 访问getters时是访问computed
+                }
+            })
+
+        })
+    
         this._vm = new Vue({
             data:{
                 $$state:options.state
-            }
+            },
+            computed
         })
 
         console.log(this._vm.$$state)//$$开头的，Vue不会做代理
@@ -41,6 +61,7 @@ class Store{
 
         action(this,payload)
     }
+
 }
 
 function install(_Vue){

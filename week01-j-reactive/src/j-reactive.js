@@ -3,13 +3,14 @@ function defineReactive(obj,key,value){
 
     Object.defineProperty(obj,key,{
         get(){
-            console.log('get',value)
+            console.log('get',key,':',value)
 
             return value
         },
         set(newValue){
             if(value !== newValue){
-                console.log('set',value,newValue)
+                observe(newValue)//@@@
+                console.log('set',key,'from',value,'to',newValue)
                 value = newValue
             }
         }
@@ -30,3 +31,7 @@ function observe(obj){//observe以对象为单位为属性做defineReactive
 }
 observe(foo)
 foo.a.b
+foo.a = {
+    newB:1
+}
+foo.a.newB

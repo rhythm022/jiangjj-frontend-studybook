@@ -5,19 +5,36 @@
 
 
 ## 日志 
-
+- Phase01 全栈课30期
+  > week02 web全栈架构师30期
+    - 2021.11.01 第二章第1节  全家桶原理和实现————跟着村长写j-vuex、j-vue-router ：[vuex代码](https://github.com/rhythm022/jiangjj-frontend-studybook/tree/main/week01-vuex/hello-vuex)、[router代码](https://github.com/rhythm022/jiangjj-frontend-studybook/tree/main/week01-vue-router)
 - Phase01 算法与数据结构
   > week01 排序
-   - 2021.10.29 selection-sort: [代码](https://github.com/rhythm022/jiangjj-frontend-studybook/blob/main/week01-sort/selection-sort.js) [📺b站](https://www.bilibili.com/video/BV1vh41187WG?spm_id_from=333.999.0.0)
-   - 2021.10.30 [insertion-sort](https://github.com/rhythm022/jiangjj-frontend-studybook/blob/main/week01-sort)
-   、[shell-sort](https://github.com/rhythm022/jiangjj-frontend-studybook/blob/main/week01-sort)
-   、[quick-sort](https://github.com/rhythm022/jiangjj-frontend-studybook/blob/main/week01-sort)
-   、[bubble-sort](https://github.com/rhythm022/jiangjj-frontend-studybook/blob/main/week01-sort)
+   - 2021.10.30 insertion-sort、shell-sort、quick-sort、bubble-sort : [代码](https://github.com/rhythm022/jiangjj-frontend-studybook/blob/main/week01-sort)
+   - 2021.10.29 selection-sort: [代码](https://github.com/rhythm022/jiangjj-frontend-studybook/blob/main/week01-sort) [📺b站](https://www.bilibili.com/video/BV1vh41187WG?spm_id_from=333.999.0.0)
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 
 - 日常学习
   > 深入浅出Node.js
-    - 2021.10.29 复习第04章 异步IO: [笔记](https://github.com/rhythm022/2020-learning/blob/master/2021-nodejs/Untitled.ipynb)    
     - 2021.10.30 复习第05章 内存控制: [笔记](https://github.com/rhythm022/2020-learning/blob/master/2021-nodejs/Untitled.ipynb)    
+    - 2021.10.29 复习第04章 异步IO: [笔记](https://github.com/rhythm022/2020-learning/blob/master/2021-nodejs/Untitled.ipynb)    
   > 深入浅出Vue.js
     - 2021.10.29 速读第13章 全局API的实现原理: 纸面标注
   > 其他

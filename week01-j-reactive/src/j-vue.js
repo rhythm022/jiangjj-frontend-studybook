@@ -21,7 +21,55 @@ class Vue{
         observe(this.$data)
 
         proxy(this)
+
+        // 实例化组件时编译/渲染dom
+        new Compile(options.el,this)//??? 编译：输入vdom(暂时以实dom讲解)，输出dom
     }
 }
+class Compile{
+    constructor(el,vm){
+        this.$el = document.querySelector(el)
+        this.$vm = vm
+
+        if(this.$el){
+            this.compile(this.$el)
+        }
+    }
+
+    compile(node){//处理某节点的所有子节点
+        const childNodes = node.childNodes
+
+        Array.from(childNodes).forEach(n=>{
+            if(this.isElement(n)){
+                console.log('元素',n.nodeName)
+
+                this.compileElement(n)//不包含子节点的子节点
+                if(n.childNodes.length>0){//不包含子节点的子节点
+                    this.compile(n)
+                }
+            }else{
+                if(this.isInter(n)){
+                    console.log('非元素(文本):动态文本',n.textContent)
+                    this.compileText(n)
+                }
+            }
+        })
+    }
+    isElement(n){
+        return n.nodeType === 1
+    }
+
+    isInter(n){
+        return n.nodeType === 3 &&
+        /\{\{(.*)\}\}/.test(n.textContent)
+    }
+
+    compileText(n){
+        n.textContent = this.$vm[RegExp.$1]
+    }
+    compileElement(n){//编译element的name和attrs
+       }
+}
+
 
 export default Vue

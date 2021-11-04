@@ -67,8 +67,26 @@ class Compile{
     compileText(n){
         n.textContent = this.$vm[RegExp.$1]
     }
-    compileElement(n){//编译element的name和attrs
-       }
+    compileElement(n){//编译element by name和attrs
+        const attributes = Array.from(n.attributes)
+        attributes.forEach(attribute=>{
+            const name = attribute.name
+            const value = attribute.value
+
+            if(this.isDirective(name)){
+                const directive = name.slice(2)
+
+                this[directive] && this[directive](value,n)// 指令钩子
+            }
+        })
+    }
+    text(){
+
+    }
+    isDirective(name){
+        return name.startsWith('j-')
+    }
+
 }
 
 

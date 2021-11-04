@@ -1,10 +1,11 @@
 function defineReactive(obj,key,value){//以属性为起点做响应式
     observe(value)
-
+    const dep = new Dep()// 属性成为发布者
     Object.defineProperty(obj,key,{
         get(){
             console.log('get',key,':',value)
 
+            Dep.target && dep.on(Dep.target)// 有条件被观察
             return value
         },
         set(newValue){
@@ -12,6 +13,7 @@ function defineReactive(obj,key,value){//以属性为起点做响应式
                 observe(newValue)//@@@
                 console.log('set',key,'from',value,'to',newValue)
                 value = newValue
+                dep.emit()
             }
         }
     })
@@ -40,6 +42,20 @@ class Observer{
 
     }
 }
+class Dep{
+    constructor(){
+        this.watchers = []
+    }
+
+    on(watcher){
+        this.watchers.push(watcher)
+    }
+    emit(){
+        this.watchers.forEach(watcher=>watcher.update())
+    }
+}
+
+
 // const foo={
 //     a:{
 //         b:1

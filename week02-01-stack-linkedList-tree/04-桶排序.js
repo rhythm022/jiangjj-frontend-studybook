@@ -1,70 +1,51 @@
-//  function readline(){
-//      return '[2,3,8,7,1,2,2,8,9]'
-//  }
+const bucketArr = [3,2,1,4,7,6]
+console.log('before bucket sorting ===>', bucketArr)
+console.log('after bucket sorting ===>', bucketSort(bucketArr))
 
 
-//  const inp = JSON.parse(readline())
-
-//  const bucket = []
-//  const res = []
-//  inp.forEach(val=>{
-//      if(!bucket[val]){
-//          bucket[val] = 1
-//      } else{
-//          bucket[val]++
-//      }
-//  })
-//  bucket.forEach((cnt,val)=>{
-//      while(cnt--){
-//          res.push(val)
-//      }
-//  })
-//  console.log(res.join(','))
-
-
-
-function bucketSort(arr, size) {
-    if (arr.length === 0) {
-      return arr
-    }
+function bucketSort(arr, range = 5) {
+    if (!arr.length) return arr
   
-    let minValue = arr[0]
-    let maxValue = arr[0]
+    let min = arr[0]
+    let max = arr[0]
     for (let i = 1; i < arr.length; i++) {
-      if (arr[i] < minValue) {
-        minValue = arr[i] // 输入数据的最小值
-      }
-      if (arr[i] > maxValue) {
-        maxValue = arr[i] // 输入数据的最大值
-      }
+      if (arr[i] < min) min = arr[i] 
+      if (arr[i] > max) max = arr[i] 
     }
   
+    
     //桶的初始化
-    let DEFAULT_BUCKET_SIZE = 2 // 设置桶的默认数量为5
-    const bucketSize = size || DEFAULT_BUCKET_SIZE
-    let bucketCount = Math.floor((maxValue - minValue) / bucketSize) + 1
-    let buckets = new Array(bucketCount)
-    for (let i = 0; i < buckets.length; i++) {
-      buckets[i] = []
-    }
-    //利用映射函数将数据分配到各个桶中
+    let buckets = new Array(Math.floor((max - min) / range) + 1).fill().map(()=>new Array())
+
     for (let i = 0; i < arr.length; i++) {
-      buckets[Math.floor((arr[i] - minValue) / bucketSize)].push(arr[i])
+        const cur = arr[i]
+        const bucketIndex = Math.floor((cur - min) / range) // 利用映射函数将数据分配到各个桶中
+        buckets[bucketIndex].push(cur)
     }
-    console.log(buckets)
   
-    // arr.length = 0
-    // for (let i = 0; i < buckets.length; i++) {
-    //   insertionSort(buckets[i]) // 对每个桶进行排序，这里使用了插入排序
-    //   for (let j = 0; j < buckets[i].length; j++) {
-    //     arr.push(buckets[i][j])
-    //   }
-    // }
+    for (let i = 0; i < buckets.length; i++) {
+        const cur = buckets[i]
+
+        insertionSort(cur) 
+
+    }
   
-    // return arr
+    return buckets.flat()
   }
-  const bucketArr = [1,2,3,4,5,6,7]
-//   console.log('before bucket sorting ===>', bucketArr)
-  bucketSort(bucketArr)
-//   console.log('after bucket sorting ===>', bucketArr)
-  
+
+
+
+
+function insertionSort(input,n = 1){
+    for(let i = n;i<input.length;i += n){
+        let cur = input[i]
+        let j = i - n
+    
+        while(j>=0 && input[j]>cur){
+            input[j+n] = input[j]
+            j -=n
+        }
+        input[j+n] = cur
+    
+    }
+}

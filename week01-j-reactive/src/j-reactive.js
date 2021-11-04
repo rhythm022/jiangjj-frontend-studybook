@@ -55,21 +55,17 @@ class Dep{
     }
 }
 export class Watcher{
-    constructor(obj,key,updater){
-        this.obj = obj
-        this.key = key
+    constructor(updater){
         this.updater = updater
 
         Dep.target = this//只有自家的Watcher可以观察我
-        obj[key]
+        this.update()
         Dep.target = null
     }
 
 
     update(){
-        const obj = this.obj
-        const key = this.key
-        this.updater.call(obj,obj[key])
+        this.updater()
     }
 }
 

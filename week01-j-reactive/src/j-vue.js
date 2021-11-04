@@ -31,13 +31,18 @@ class Compile{
         this.$el = document.querySelector(el)
         this.$vm = vm
 
+        const tmpl = this.$el.innerHTML
         if(this.$el){
-            this.compile(this.$el)
+            new Watcher(()=>{
+                this.$el.innerHTML = tmpl
+                this.compile(this.$el)
+            })
         }
     }
 
     compile(node){//处理某节点的所有子节点
         const childNodes = node.childNodes
+
 
         Array.from(childNodes).forEach(n=>{
             if(this.isElement(n)){
@@ -83,11 +88,6 @@ class Compile{
     }
     text(value,n){
         n.textContent = this.$vm[value]
-
-        new Watcher(this.$vm,value,()=>{
-            n.textContent = this.$vm[value]
-
-        })
     }
     isDirective(name){
         return name.startsWith('j-')

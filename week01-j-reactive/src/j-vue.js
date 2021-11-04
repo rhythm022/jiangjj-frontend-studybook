@@ -80,7 +80,8 @@ class Compile{
             }
         })
     }
-    text(){
+    text(value,n){
+        n.textContent = this.$vm[value]
 
     }
     isDirective(name){

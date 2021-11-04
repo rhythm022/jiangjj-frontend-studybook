@@ -54,7 +54,24 @@ class Dep{
         this.watchers.forEach(watcher=>watcher.update())
     }
 }
+class Watcher{
+    constructor(obj,key,updater){
+        this.obj = obj
+        this.key = key
+        this.updater = updater
 
+        Dep.target = this//只有自家的Watcher可以观察我
+        obj[key]
+        Dep.target = null
+    }
+
+    
+    update(){
+        const obj = this.obj
+        const key = this.key
+        this.updater.call(obj,obj[key])
+    }
+}
 
 // const foo={
 //     a:{

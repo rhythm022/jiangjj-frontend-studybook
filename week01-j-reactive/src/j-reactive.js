@@ -54,7 +54,7 @@ class Dep{
         this.watchers.forEach(watcher=>watcher.update())
     }
 }
-class Watcher{
+export class Watcher{
     constructor(obj,key,updater){
         this.obj = obj
         this.key = key
@@ -65,7 +65,7 @@ class Watcher{
         Dep.target = null
     }
 
-    
+
     update(){
         const obj = this.obj
         const key = this.key
@@ -91,7 +91,8 @@ class Watcher{
 export default{
     defineReactive,
     set,
-    observe
+    observe,
+    Watcher
 }
 //  set(foo,'other',1)
 //  foo.other

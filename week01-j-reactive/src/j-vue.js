@@ -1,4 +1,4 @@
-import { observe } from './j-reactive.js'
+import { observe,Watcher } from './j-reactive.js'
 
 
 function proxy(vm){
@@ -66,6 +66,7 @@ class Compile{
 
     compileText(n){
         n.textContent = this.$vm[RegExp.$1]
+        
     }
     compileElement(n){//编译element by name和attrs
         const attributes = Array.from(n.attributes)
@@ -83,6 +84,10 @@ class Compile{
     text(value,n){
         n.textContent = this.$vm[value]
 
+        new Watcher(this.$vm,value,()=>{
+            n.textContent = this.$vm[value]
+
+        })
     }
     isDirective(name){
         return name.startsWith('j-')

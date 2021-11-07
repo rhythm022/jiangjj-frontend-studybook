@@ -12,6 +12,9 @@
     - week02-2 全栈课第二章第2节：j-reactive代码
     - week02-1 全栈课第二章第1节：vuex、vue-router代码
   > 算法与数据结构
+   - week02-6 实现了小顶堆：[代码](https://github.com/rhythm022/jiangjj-frontend-studybook/blob/main/week02-02/heap.js)
+   - week02-6 完成week02-02的算法题
+   - week02-6 分享反转链表的做题思路 : [掘金](https://juejin.cn/post/7027331088104194056)
    - week02-4 加强了对桶排序、快排的理解：[掘金](https://juejin.cn/post/7026750529673887780)
    - week02-3 完成tes-week02-1：w0201代码
    - week02-2 门徒课leetcode——#141 环形链表、#142 环形链表 II、#202 快乐数

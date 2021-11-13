@@ -8,34 +8,29 @@
 - Phase01 
   > web全栈架构师30期
     - 第二周 
-      - 周一 全栈课第二章第1节：vuex、vue-router代码
-      - 周二 全栈课第二章第2节：j-reactive代码
-      - 周三 全栈课第二章第2节(继续) ：j-reactive代码
-      - 周四 全栈课第二章第2节(完成) ：j-reactive代码
+      - 全栈课第二章第1节：vuex、vue-router代码
+      - 全栈课第二章第2节：j-reactive代码
    - 第三周 
-      - 周一 
-          - 全栈课第二章第1、2节总结：[掘金](https://juejin.cn/post/7028094049697398797)
-          - 全栈课第二章第3节观看
-      - 周二
-         - 全栈课第二章第4节观看
+      - 全栈课第二章第1、2节总结：[掘金](https://juejin.cn/post/7028094049697398797)
+
 
         
   > 算法与数据结构
    - 第一周
-      - 周五 selection-sort: [📺b站](https://www.bilibili.com/video/BV1vh41187WG?spm_id_from=333.999.0.0)
-      - 周六 insertion-sort、shell-sort、quick-sort、bubble-sort
+      - selection-sort: [📺b站](https://www.bilibili.com/video/BV1vh41187WG?spm_id_from=333.999.0.0)
    - 第二周
-      - 周二 门徒课leetcode——#141 环形链表、#142 环形链表 II、#202 快乐数
-      - 周三 完成tes-week02-1
-      - 周四 加强对桶排序、快排的理解：[掘金](https://juejin.cn/post/7026750529673887780)
-      - 周六 
-          - 实现小顶堆：[代码](https://github.com/rhythm022/jiangjj-frontend-studybook/blob/main/algorithm/02-%E5%B0%8F%E9%A1%B6%E5%A0%86.js)
-          - 完成week02-02的算法题
-          - 分享反转链表的做题思路 : [掘金](https://juejin.cn/post/7027331088104194056)
-      - 周日 完成week02-03的算法题
+      - 桶排序：[掘金](https://juejin.cn/post/7026750529673887780)
+      - 实现小顶堆：[代码](https://github.com/rhythm022/jiangjj-frontend-studybook/blob/main/algorithm/02-%E5%B0%8F%E9%A1%B6%E5%A0%86.js)
+      - 反转链表 : [掘金](https://juejin.cn/post/7027331088104194056)
   - 第三周 
-      - 周二
-          完成week03-01的算法题
+    - 2021.11.13:
+         - leetcode 110 balanced-binary-tree [b站](https://www.bilibili.com/video/BV14L4y1v7tC?spm_id_from=333.999.0.0)
+         - leetcode 剑指 Offer 55 - I. 二叉树的深度 [b站](https://www.bilibili.com/video/BV11L411u7eF?spm_id_from=333.999.0.0)
+         - leetcode 35 search-insert-position [b站](https://www.bilibili.com/video/BV1Bq4y1u7EY?spm_id_from=333.999.0.0)
+         - leetcode 633 sum-of-square-numbers [b站](https://www.bilibili.com/video/BV1jY411x7Yj?spm_id_from=333.999.0.0)
+         - leetcode 704 binary-search [b站](https://www.bilibili.com/video/BV1Jq4y167Ea?spm_id_from=333.999.0.0)
+         - leetcode 1 two-sum [b站](https://www.bilibili.com/video/BV1sq4y1u7Ay?spm_id_from=333.999.0.0)
+     
 
  
  

@@ -30,7 +30,10 @@
          - leetcode 633 sum-of-square-numbers [b站](https://www.bilibili.com/video/BV1jY411x7Yj?spm_id_from=333.999.0.0)
          - leetcode 704 binary-search [b站](https://www.bilibili.com/video/BV1Jq4y167Ea?spm_id_from=333.999.0.0)
          - leetcode 1 two-sum [b站](https://www.bilibili.com/video/BV1sq4y1u7Ay?spm_id_from=333.999.0.0)
-     
+    - 2021.11.14
+         - leetcode 347 top-k-frequent-elements [b站](https://www.bilibili.com/video/BV1LR4y1t725/)
+         - leetcode 202 happy-number [b站](https://www.bilibili.com/video/BV1Pf4y1M7NG/)
+         - leetcode 912 sort-an-array [b站](https://www.bilibili.com/video/BV1E34y1d7Qg/)
 
  
  

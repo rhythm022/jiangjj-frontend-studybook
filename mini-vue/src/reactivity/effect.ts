@@ -13,12 +13,16 @@ class ReactiveEffect{
         // activeEffect = null//???
     }
     stop(){
-        this.deps.forEach((dep:any)=>{
-            dep.delete(this)
-        })
+        clearUpEffect(this)
     }
 }
 
+
+function clearUpEffect(effect){
+    effect.deps.forEach((dep:any)=>{
+        dep.delete(effect)
+    })
+}
 export function track(obj,key){
     if(!activeEffect) return 
     let keysMap = objMap.get(obj)

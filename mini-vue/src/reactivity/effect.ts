@@ -9,7 +9,7 @@ class ReactiveEffect{
     run(){
         activeEffect = this
         this._fn()
-        activeEffect = null
+        // activeEffect = null//???
     }
 }
 
@@ -27,6 +27,13 @@ export function track(obj,key){
     }
     dep.add(activeEffect)
 
+}
+export function trigger(obj,key) {
+    let keysMap = objMap.get(obj)
+    let dep = keysMap.get(key)
+    for(const effect of dep){
+        effect.run()
+    }
 }
 export function effect(fn){
     const _effect = new ReactiveEffect(fn)

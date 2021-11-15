@@ -1,4 +1,4 @@
-import { track } from "./effect"
+import { track, trigger } from "./effect"
 
 export function reactive(raw){// effect为主，reactive是辅助性的提供hook
     return new Proxy(raw,{
@@ -13,6 +13,7 @@ export function reactive(raw){// effect为主，reactive是辅助性的提供hoo
             const res = Reflect.set(obj,key,value)
 
             // TODO 触发effect
+            trigger(obj,key)
             return res
         }
     })

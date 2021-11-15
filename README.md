@@ -24,22 +24,22 @@
       - 反转链表 : [掘金](https://juejin.cn/post/7027331088104194056)
   - 第三周 
     - 2021.11.12:
-         - leetcode 110 balanced-binary-tree [b站](https://www.bilibili.com/video/BV14L4y1v7tC?spm_id_from=333.999.0.0)
-         - leetcode 剑指 Offer 55 - I. 二叉树的深度 [b站](https://www.bilibili.com/video/BV11L411u7eF?spm_id_from=333.999.0.0)
-         - leetcode 35 search-insert-position [b站](https://www.bilibili.com/video/BV1Bq4y1u7EY?spm_id_from=333.999.0.0)
-         - leetcode 633 sum-of-square-numbers [b站](https://www.bilibili.com/video/BV1jY411x7Yj?spm_id_from=333.999.0.0)
-         - leetcode 704 binary-search [b站](https://www.bilibili.com/video/BV1Jq4y167Ea?spm_id_from=333.999.0.0)
-         - leetcode 1 two-sum [b站](https://www.bilibili.com/video/BV1sq4y1u7Ay?spm_id_from=333.999.0.0)
+         - leetcode 110 balanced-binary-tree [📺b站](https://www.bilibili.com/video/BV14L4y1v7tC?spm_id_from=333.999.0.0)
+         - leetcode 剑指 Offer 55 - I. 二叉树的深度 [📺b站](https://www.bilibili.com/video/BV11L411u7eF?spm_id_from=333.999.0.0)
+         - leetcode 35 search-insert-position [📺b站](https://www.bilibili.com/video/BV1Bq4y1u7EY?spm_id_from=333.999.0.0)
+         - leetcode 633 sum-of-square-numbers [📺b站](https://www.bilibili.com/video/BV1jY411x7Yj?spm_id_from=333.999.0.0)
+         - leetcode 704 binary-search [📺b站](https://www.bilibili.com/video/BV1Jq4y167Ea?spm_id_from=333.999.0.0)
+         - leetcode 1 two-sum [📺b站](https://www.bilibili.com/video/BV1sq4y1u7Ay?spm_id_from=333.999.0.0)
     - 2021.11.13
-         - leetcode 347 top-k-frequent-elements [b站](https://www.bilibili.com/video/BV1LR4y1t725/)
-         - leetcode 202 happy-number [b站](https://www.bilibili.com/video/BV1Pf4y1M7NG/)
-         - leetcode 912 sort-an-array [b站](https://www.bilibili.com/video/BV1E34y1d7Qg/)
+         - leetcode 347 top-k-frequent-elements [📺b站](https://www.bilibili.com/video/BV1LR4y1t725/)
+         - leetcode 202 happy-number [📺b站](https://www.bilibili.com/video/BV1Pf4y1M7NG/)
+         - leetcode 912 sort-an-array [📺b站](https://www.bilibili.com/video/BV1E34y1d7Qg/)
     - 2021.11.14
-        - leetcode 25 reverse-nodes-in-k-group[b站](https://www.bilibili.com/video/BV1US4y1d7kn)
-        - leetcode 剑指 Offer II 004. 只出现一次的数字[b站](https://www.bilibili.com/video/BV1Hq4y1u7zv)
-        - leetcode 409 longest-palindrome[b站](https://www.bilibili.com/video/BV1SQ4y1m7k6)
-        - leetcode 543 diameter-of-binary-tree[b站](https://www.bilibili.com/video/BV1j44y1v7j6)
-        - leetcode 242 valid-anagram[b站](https://www.bilibili.com/video/BV1xQ4y1U7Zf)
+        - leetcode 25 reverse-nodes-in-k-group [📺b站](https://www.bilibili.com/video/BV1US4y1d7kn)
+        - leetcode 剑指 Offer II 004. 只出现一次的数字 [📺b站](https://www.bilibili.com/video/BV1Hq4y1u7zv)
+        - leetcode 409 longest-palindrome [📺b站](https://www.bilibili.com/video/BV1SQ4y1m7k6)
+        - leetcode 543 diameter-of-binary-tree [📺b站](https://www.bilibili.com/video/BV1j44y1v7j6)
+        - leetcode 242 valid-anagram [📺b站](https://www.bilibili.com/video/BV1xQ4y1U7Zf)
 
  
  

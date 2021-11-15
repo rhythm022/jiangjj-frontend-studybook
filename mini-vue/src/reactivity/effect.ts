@@ -2,6 +2,7 @@ const objMap = new Map()
 let activeEffect
 class ReactiveEffect{
     private _fn: any
+    deps = []
     constructor(fn,public scheduler?){//@@@
         this._fn = fn
     }
@@ -11,9 +12,15 @@ class ReactiveEffect{
         return this._fn()
         // activeEffect = null//???
     }
+    stop(){
+        this.deps.forEach((dep:any)=>{
+            dep.delete(this)
+        })
+    }
 }
 
 export function track(obj,key){
+    if(!activeEffect) return 
     let keysMap = objMap.get(obj)
     if(!keysMap){
         keysMap = new Map()
@@ -26,6 +33,7 @@ export function track(obj,key){
         keysMap.set(key,dep)
     }
     dep.add(activeEffect)
+    activeEffect.deps.push(dep)
 
 }
 export function trigger(obj,key) {
@@ -44,5 +52,12 @@ export function effect(fn,options:any={}){
 
     _effect.run()
 
-    return _effect.run.bind(_effect)
+    const runner :any= _effect.run.bind(_effect)
+    runner.effect =  _effect
+    return runner//runner用于手动effect
+}
+
+export function stop(fn) {
+    fn.effect.stop()
+    
 }

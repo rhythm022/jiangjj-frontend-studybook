@@ -1,13 +1,16 @@
-export function reactive(raw){
-    return new Proxy(raw,{
-        get(target,key){
-            const res = Reflect.get(target,key)
+import { track } from "./effect"
 
-            // TODO 收集effect
+export function reactive(raw){// effect为主，reactive是辅助性的提供hook
+    return new Proxy(raw,{
+        get(obj,key){
+            const res = Reflect.get(obj,key)
+
+            // 收集effect
+            track(obj,key)
             return res
         },
-        set(target,key,value){
-            const res = Reflect.set(target,key,value)
+        set(obj,key,value){
+            const res = Reflect.set(obj,key,value)
 
             // TODO 触发effect
             return res

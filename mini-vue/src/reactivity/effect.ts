@@ -3,17 +3,23 @@ let activeEffect
 class ReactiveEffect{
     private _fn: any
     deps = []
+    active = true
     constructor(fn,public scheduler?){//@@@
         this._fn = fn
     }
 
     run(){
+        this.active = true
         activeEffect = this
         return this._fn()
         // activeEffect = null//???
     }
     stop(){
-        clearUpEffect(this)
+        if(this.active){
+            clearUpEffect(this)
+            this.active = false
+
+        }
     }
 }
 

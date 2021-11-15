@@ -2,7 +2,7 @@ const objMap = new Map()
 let activeEffect
 class ReactiveEffect{
     private _fn: any
-    constructor(fn){
+    constructor(fn,public scheduler?){//@@@
         this._fn = fn
     }
 
@@ -32,11 +32,15 @@ export function trigger(obj,key) {
     let keysMap = objMap.get(obj)
     let dep = keysMap.get(key)
     for(const effect of dep){
-        effect.run()
+        if(effect.scheduler){
+            effect.scheduler()
+        }else{
+            effect.run()
+        }
     }
 }
-export function effect(fn){
-    const _effect = new ReactiveEffect(fn)
+export function effect(fn,options:any={}){
+    const _effect = new ReactiveEffect(fn,options.scheduler)
 
     _effect.run()
 

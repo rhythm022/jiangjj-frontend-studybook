@@ -42,7 +42,7 @@ module.exports = (template) => {
     function parse(template) {
         const arr = template.split('\n')
 
-        let state = init;
+        let state = beforeFrontStart;
 
         arr.forEach(line => {
             currentLine = line
@@ -50,33 +50,27 @@ module.exports = (template) => {
         })
     }
 
-    function init(){
+    function beforeFrontStart(){
         // 1.只能 => FRONT_START
         if(isMarkLine(FRONT_START)){
             return frontStart
         }else if (isPlainLine()){
-            return init
+            return beforeFrontStart
         }else{
-            console.error('init')
-        }
-    }
-    function frontStart2(line) {
-        if(isMarkLine(FRONT_END)){
-            return frontEnd()
+            console.error('beforeFrontStart')
         }
     }
     //前置开始
-    function frontStart(line) {
-        if (line === '') return frontStart
-
-        if (line.trim() === FRONT_END) {
+    function frontStart() {
+        if(isMarkLine(FRONT_END)){
             return frontEnd()
-        } else if (line.trim() === FRONT_START) {
-            return frontStart
-        } else {
-            currentToken = `${currentToken}${line}
+        }else if(isPlainLine()){
+            currentToken = `${currentToken}${currentLine}
 `
             return frontStart
+        }else{
+            console.error('frontStart')
+
         }
     }
 
@@ -84,45 +78,60 @@ module.exports = (template) => {
     function frontEnd() {
         frontStr = currentToken
         currentToken = ''
-        return templateStart
+        return beforeTemplateStart
     }
 
-    //模板开始
-    function templateStart(string) {
-        if (string.trim() === TEMPLATE_END) {
-            return templateEnd()
-        } else if (string.trim() === TEMPLATE_START) {
+    function beforeTemplateStart(){
+        // 1.只能 => TEMPLATE_START
+        if(isMarkLine(TEMPLATE_START)){
             return templateStart
-        } else if (string.trim() === ANSWER_START) {
+        }else if (isPlainLine()){
+            return beforeTemplateStart
+        }else{
+            console.error('beforeTemplateStart')
+        }
+    }
+    //模板开始
+    function templateStart() {
+        if(isMarkLine(TEMPLATE_END)){
+            return templateEnd()
+        }else if(isMarkLine(ANSWER_START)){
             templateStr = currentToken
             currentToken = ''
             return answerStart
-        } else {
-            currentToken = `${currentToken}${string}
+        }else if(isPlainLine()){
+            currentToken = `${currentToken}${currentLine}
 `
             return templateStart
+        }else{
+            console.error('templateStart')
+
         }
+       
     }
+
+
 
     //模板结束
     function templateEnd() {
         templateStr = `${templateStr}${currentToken}` //中间会有答案，所以模板是由前后两部分组成，这里要用+
         currentToken = ''
-        return backStart
+        return beforeBackStart
     }
 
     //回答开始
-    function answerStart(string) {
-        if (string.trim() === ANSWER_END) {
+    function answerStart() {
+        if (isMarkLine(ANSWER_END)) {
             return answerEnd()
-        } else if (string.trim() === ANSWER_START) {
-            return answerStart
-        } else {
-            currentToken = `${currentToken}${string}
+        } else if(isPlainLine()){
+            currentToken = `${currentToken}${currentLine}
 `
             return answerStart
+        }else{
+            console.error('answerStart')
         }
     }
+
 
     //回答结束
     function answerEnd() {
@@ -131,18 +140,30 @@ module.exports = (template) => {
         return templateStart
     }
 
-    //后置开始
-    function backStart(string) {
-        if (string.trim() === BACK_END) {
-            return backEnd()
-        } else if (string.trim() === BACK_START) {
+    function beforeBackStart(){
+    // 1.只能 => BACK_START
+        if(isMarkLine(BACK_START)){
             return backStart
-        } else {
-            currentToken = `${currentToken}${string}
-`
-            return backStart
+        }else if (isPlainLine()){
+            return beforeBackStart
+        }else{
+            console.error('beforeBackStart')
         }
     }
+    //后置开始
+    function backStart() {
+        if (isMarkLine(BACK_END)) {
+            return backEnd()
+        } else if(isPlainLine()) {
+            currentToken = `${currentToken}${currentLine}
+`
+            return backStart
+        }else{
+            console.error('backStart')
+
+        }
+    }
+
 
     //后置结束
     function backEnd() {

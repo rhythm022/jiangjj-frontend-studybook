@@ -1,9 +1,7 @@
 describe("代码模板分离", () => {
   test('正常系',() => {
     const code = `
-
-
-    
+   
 
     // 前置代码 start
     var input = [1,3,2]

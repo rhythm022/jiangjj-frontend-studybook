@@ -48,6 +48,8 @@ module.exports = (template) => {
             currentLine = line
             state = state(line);
         })
+
+        if(state !== End)throw new Error('End error')
     }
 
     function beforeFrontStart(){
@@ -57,7 +59,7 @@ module.exports = (template) => {
         }else if (isPlainLine()){
             return beforeFrontStart
         }else{
-            console.error('beforeFrontStart')
+            throw new Error('beforeFrontStart error')
         }
     }
     //前置开始
@@ -65,11 +67,10 @@ module.exports = (template) => {
         if(isMarkLine(FRONT_END)){
             return frontEnd()
         }else if(isPlainLine()){
-            currentToken = `${currentToken}${currentLine}
-`
+            currentToken += `${currentToken}${currentLine}\n`
             return frontStart
         }else{
-            console.error('frontStart')
+            throw new Error('frontStart error')
 
         }
     }
@@ -88,7 +89,8 @@ module.exports = (template) => {
         }else if (isPlainLine()){
             return beforeTemplateStart
         }else{
-            console.error('beforeTemplateStart')
+            throw new Error('beforeTemplateStart error')
+
         }
     }
     //模板开始
@@ -100,11 +102,10 @@ module.exports = (template) => {
             currentToken = ''
             return answerStart
         }else if(isPlainLine()){
-            currentToken = `${currentToken}${currentLine}
-`
+            currentToken = `${currentToken}${currentLine}\n`
             return templateStart
         }else{
-            console.error('templateStart')
+            throw new Error('templateStart error')
 
         }
        
@@ -124,11 +125,11 @@ module.exports = (template) => {
         if (isMarkLine(ANSWER_END)) {
             return answerEnd()
         } else if(isPlainLine()){
-            currentToken = `${currentToken}${currentLine}
-`
+            currentToken = `${currentToken}${currentLine}\n`
             return answerStart
         }else{
-            console.error('answerStart')
+            throw new Error('answerStart error')
+
         }
     }
 
@@ -147,7 +148,8 @@ module.exports = (template) => {
         }else if (isPlainLine()){
             return beforeBackStart
         }else{
-            console.error('beforeBackStart')
+            throw new Error('beforeBackStart error')
+
         }
     }
     //后置开始
@@ -155,11 +157,10 @@ module.exports = (template) => {
         if (isMarkLine(BACK_END)) {
             return backEnd()
         } else if(isPlainLine()) {
-            currentToken = `${currentToken}${currentLine}
-`
+            currentToken = `${currentToken}${currentLine}\n`
             return backStart
         }else{
-            console.error('backStart')
+            throw new Error('backStart error')
 
         }
     }
@@ -173,7 +174,9 @@ module.exports = (template) => {
     }
 
     //结束
-    function End() {}
+    function End() {
+        return End
+    }
 
     return {
         front: frontStr,

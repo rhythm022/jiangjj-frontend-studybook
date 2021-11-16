@@ -26,7 +26,7 @@ describe("代码模板分离", () => {
     // 后置代码 end
 
 
-    
+
         `;
 
     const parse = require('../index')
@@ -53,6 +53,103 @@ describe("代码模板分离", () => {
   });
 
   // TODO: 异常系 所有违反规定的依赖抛error
+  test('should throw templateStr error, when not found: templateStr',() => {
+    const code = `
+   
+    // 前置代码 start
+    var input = [1,3,2]
+    // 前置代码 end
+
+
+
+    // 模板 start
+    // 模板 end
+
+
+
+
+    
+    // 后置代码 start
+    console.log(sort(input))
+    // 后置代码 end
+        `;
+    const parse = require('../index')
+     
+    expect(()=>{
+        parse(code)
+    }).toThrowError(new Error('templateStr error'))
+    
+  });
+  test('should throw frontStr error, when not found: frontStr',() => {
+    const code = `
+    // 前置代码 start
+    // 前置代码 end
+    // 模板 start
+    function sort(arr) {
+        // 答案 start
+        var len = arr.length;
+        for (var i = 0; i < len - 1; i++) {
+            for (var j = 0; j < len - 1 - i; j++) {
+                if (arr[j] > arr[j+1]) {        // 相邻元素两两对比
+                    var temp = arr[j+1];        // 元素交换
+                    arr[j+1] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+        // 答案 end
+        return arr;
+    }
+    // 模板 end
+    // 后置代码 start
+    console.log(sort(input))
+    // 后置代码 end
+
+
+
+        `;
+    const parse = require('../index')
+
+    expect(()=>{
+        parse(code)
+    }).toThrowError(new Error('frontStr error'))
+    
+  });
+  test('should throw backStr error, when not found: backStr',() => {
+    const code = `
+    // 前置代码 start
+    var input = [1,3,2]
+    // 前置代码 end
+    // 模板 start
+    function sort(arr) {
+        // 答案 start
+        var len = arr.length;
+        for (var i = 0; i < len - 1; i++) {
+            for (var j = 0; j < len - 1 - i; j++) {
+                if (arr[j] > arr[j+1]) {        // 相邻元素两两对比
+                    var temp = arr[j+1];        // 元素交换
+                    arr[j+1] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+        // 答案 end
+        return arr;
+    }
+    // 模板 end
+    // 后置代码 start
+    // 后置代码 end
+
+
+
+        `;
+    const parse = require('../index')
+    
+    expect(()=>{
+        parse(code)
+    }).toThrowError(new Error('backStr error'))
+    
+  });
   test('should throw beforeFrontStart error, when not found:// 前置代码 start',() => {
     const code = `
    
@@ -90,10 +187,9 @@ describe("代码模板分离", () => {
         `;
     const parse = require('../index')
 
-     
-        expect(()=>{
-            parse(code)
-        }).toThrowError(new Error('beforeFrontStart error'))
+    expect(()=>{
+        parse(code)
+    }).toThrowError(new Error('beforeFrontStart error'))
     
   });
   test('should throw frontStart error, when not found:// 前置代码 end',() => {
@@ -133,10 +229,9 @@ describe("代码模板分离", () => {
         `;
     const parse = require('../index')
 
-     
-        expect(()=>{
-            parse(code)
-        }).toThrowError(new Error('frontStart error'))
+    expect(()=>{
+        parse(code)
+    }).toThrowError(new Error('frontStart error'))
     
   });
 
@@ -178,10 +273,9 @@ describe("代码模板分离", () => {
         `;
     const parse = require('../index')
 
-     
-        expect(()=>{
-            parse(code)
-        }).toThrowError(new Error('beforeTemplateStart error'))
+    expect(()=>{
+        parse(code)
+    }).toThrowError(new Error('beforeTemplateStart error'))
     
   });
 
@@ -223,10 +317,9 @@ describe("代码模板分离", () => {
         `;
     const parse = require('../index')
 
-     
-        expect(()=>{
-            parse(code)
-        }).toThrowError(new Error('answerStart error'))
+    expect(()=>{
+        parse(code)
+    }).toThrowError(new Error('answerStart error'))
     
   });
 
@@ -268,10 +361,9 @@ describe("代码模板分离", () => {
         `;
     const parse = require('../index')
 
-     
-        expect(()=>{
-            parse(code)
-        }).toThrowError(new Error('templateStart error'))
+    expect(()=>{
+        parse(code)
+    }).toThrowError(new Error('templateStart error'))
     
   });
 
@@ -313,10 +405,9 @@ describe("代码模板分离", () => {
         `;
     const parse = require('../index')
 
-     
-        expect(()=>{
-            parse(code)
-        }).toThrowError(new Error('beforeBackStart error'))
+    expect(()=>{
+        parse(code)
+    }).toThrowError(new Error('beforeBackStart error'))
     
   });
 
@@ -358,9 +449,11 @@ describe("代码模板分离", () => {
         `;
 
     const parse = require('../index')
+
     expect(()=>{
         parse(code)
     }).toThrowError(new Error('End error'))
+    
   });
 
   

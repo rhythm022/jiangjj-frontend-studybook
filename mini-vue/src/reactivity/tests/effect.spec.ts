@@ -62,20 +62,20 @@ describe('effect', () => {
         let dummy
         const obj = reactive({foo:1})
         const runner = effect(()=>{
-            dummy = obj.foo
+            dummy = obj.foo // effect读foo的时候，track上了
         })
-        obj.foo = 2
+        // 
+        obj.foo = 2// 导致effect执行，effect执行的时候读obj.foo，又track，无害
         expect(dummy).toBe(2)
+        
         //
-        stop(runner)
-        obj.foo = 3
+        stop(runner)// untrack/释放effect
+        obj.foo++// effect外面读obj.foo，不会track上//写obj.foo，也没有effect可执行
         expect(dummy).toBe(2)
+        
         //
-        runner();
+        runner();// 执行effect。effect读的时候，track上了
         expect(dummy).toBe(3)
-        //
-        obj.foo = 4
-        expect(dummy).toBe(4)
     })
 
     it('onStop',()=>{

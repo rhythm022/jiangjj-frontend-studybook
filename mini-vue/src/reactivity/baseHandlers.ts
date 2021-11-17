@@ -11,6 +11,7 @@ function createGetter(isReadonly = false) {
         if(key === ReactiveFlags.IS_READONLY)return isReadonly
         if (!isReadonly) {
             // 收集effect
+            // console.log('track',obj,key)
             track(obj, key)
         }
 
@@ -21,9 +22,11 @@ function createGetter(isReadonly = false) {
 function createSetter() {
     return function set(obj, key, value) {
         const res = Reflect.set(obj, key, value)
-
+        // console.log('======trigger start=======')
         // 触发effect
         trigger(obj, key)
+        // console.log('======trigger end=========')
+
         return res
     }
 }

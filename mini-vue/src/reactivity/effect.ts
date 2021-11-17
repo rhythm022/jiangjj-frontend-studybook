@@ -14,8 +14,10 @@ class ReactiveEffect{
     run(){
         this.active = true
         activeEffect = this
-        return this._fn()
-        // activeEffect = null//???
+        const res =  this._fn()
+        activeEffect = null//???
+
+        return res
     }
     stop(){
         if(this.active){

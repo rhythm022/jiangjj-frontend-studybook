@@ -7,6 +7,7 @@ describe('reactive',()=>{
         expect(observed).not.toBe(original)
         expect(observed.foo).toBe(1)
         expect(isReactive(observed)).toBe(true)
+        expect(isReactive(original)).toBe(false)
     })
 
     it('warn when call set',()=>{

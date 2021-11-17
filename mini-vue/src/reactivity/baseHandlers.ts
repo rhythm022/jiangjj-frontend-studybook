@@ -1,4 +1,5 @@
 import { track, trigger } from "./effect"
+import { ReactiveFlags } from "./reactive"
 
 
 
@@ -6,7 +7,7 @@ function createGetter(isReadonly = false) {
     return function get(obj, key) {
         const res = Reflect.get(obj, key)
 
-        if(key === 'is_reactive')return !isReadonly
+        if(key === ReactiveFlags.IS_REACTIVE)return !isReadonly
         if (!isReadonly) {
             // 收集effect
             track(obj, key)

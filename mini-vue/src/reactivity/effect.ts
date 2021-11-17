@@ -1,3 +1,5 @@
+import { extend } from "../../shared"
+
 const objMap = new Map()
 let activeEffect
 class ReactiveEffect{
@@ -63,7 +65,7 @@ export function trigger(obj,key) {
 }
 export function effect(fn,options:any={}){
     const _effect = new ReactiveEffect(fn,options.scheduler)
-    _effect.onStop = options.onStop
+    extend(_effect,options)
     _effect.run()
 
     const runner :any= _effect.run.bind(_effect)

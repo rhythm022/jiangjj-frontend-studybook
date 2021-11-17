@@ -36,6 +36,7 @@ function clearUpEffect(effect){
     effect.deps.forEach((dep:any)=>{
         dep.delete(effect)
     })
+    effect.deps.length = 0
 }
 export function track(obj,key){
     if(!activeEffect) return 

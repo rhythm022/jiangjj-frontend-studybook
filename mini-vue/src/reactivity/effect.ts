@@ -2,6 +2,7 @@ const objMap = new Map()
 let activeEffect
 class ReactiveEffect{
     private _fn: any
+    onStop?: () => void
     deps = []
     active = true
     constructor(fn,public scheduler?){//@@@
@@ -17,6 +18,9 @@ class ReactiveEffect{
     stop(){
         if(this.active){
             clearUpEffect(this)
+            if(this.onStop){
+                this.onStop()
+            }
             this.active = false
 
         }
@@ -59,7 +63,7 @@ export function trigger(obj,key) {
 }
 export function effect(fn,options:any={}){
     const _effect = new ReactiveEffect(fn,options.scheduler)
-
+    _effect.onStop = options.onStop
     _effect.run()
 
     const runner :any= _effect.run.bind(_effect)

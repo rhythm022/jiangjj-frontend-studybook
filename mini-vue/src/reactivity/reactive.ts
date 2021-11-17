@@ -18,3 +18,17 @@ export function reactive(raw){// effect为主，reactive是辅助性的提供hoo
         }
     })
 }
+
+
+export function readonly(raw){// effect为主，reactive是辅助性的提供hook
+    return new Proxy(raw,{
+        get(obj,key){
+            const res = Reflect.get(obj,key)
+
+            return res
+        },
+        set(obj,key,value){
+            return true
+        }
+    })
+}

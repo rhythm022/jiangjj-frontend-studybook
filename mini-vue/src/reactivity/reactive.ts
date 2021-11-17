@@ -26,14 +26,17 @@ function createSetter() {
 }
 
 export function reactive(raw) {// effect为主，reactive是辅助性的提供hook
-    return new Proxy(raw, reactiveHandler)
+    return createActiveObject(raw, reactiveHandler)
 }
 
 
 export function readonly(raw) {// effect为主，reactive是辅助性的提供hook
-    return new Proxy(raw, readonlyHandler)
+    return createActiveObject(raw, readonlyHandler)
 }
 
+function createActiveObject(raw, handler){
+    return new Proxy(raw, handler)
+}
 const reactiveHandler = {
     get: createGetter(),
     set: createSetter()

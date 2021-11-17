@@ -37,6 +37,7 @@ const readonlyGet = createGetter(true)
 export const readonlyHandler = {
     get: readonlyGet,
     set(obj, key, value) {
+        console.warn(`can not set readonly object ${obj} ${key}`)
         return true
     }
 }

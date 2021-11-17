@@ -6,6 +6,7 @@ function createGetter(isReadonly = false) {
     return function get(obj, key) {
         const res = Reflect.get(obj, key)
 
+        if(key === 'is_reactive')return !isReadonly
         if (!isReadonly) {
             // 收集effect
             track(obj, key)

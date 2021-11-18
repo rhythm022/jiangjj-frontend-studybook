@@ -1,5 +1,6 @@
+import { isObject } from "../../shared"
 import { track, trigger } from "./effect"
-import { ReactiveFlags } from "./reactive"
+import { ReactiveFlags,reactive } from "./reactive"
 
 
 
@@ -15,6 +16,9 @@ function createGetter(isReadonly = false) {
             track(obj, key)
         }
 
+        if(isObject(res)){
+            return reactive(res)// get obj.key.key 时先 get obj.key，才惰性的转换成reactive对象 
+        }
         return res
     }
 }

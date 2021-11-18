@@ -2,22 +2,28 @@ import { extend } from "../../shared"
 
 const objMap = new Map()
 let activeEffect
+let enableTrack
 class ReactiveEffect{
     private _fn: any
     onStop?: () => void
     deps = []
-    active = true
+    active = true// 当effect存续时为true
     constructor(fn,public scheduler?){//@@@
         this._fn = fn
     }
 
     run(){
-        this.active = true
+        if(!this.active){
+            return this._fn()//在暂停的情况下调用run，就是普通执行fn
+        }
+
+        enableTrack = true// 只有当执行effect API、触发set时在fn内发生get-track时才enableTrack-track
         activeEffect = this
         const res =  this._fn()
-        activeEffect = null//???
+        enableTrack = false
 
         return res
+  
     }
     stop(){
         if(this.active){
@@ -39,7 +45,8 @@ function clearUpEffect(effect){
     effect.deps.length = 0
 }
 export function track(obj,key){
-    if(!activeEffect) return 
+    if(!enableTrack) return
+
     let keysMap = objMap.get(obj)
     if(!keysMap){
         keysMap = new Map()
@@ -51,8 +58,12 @@ export function track(obj,key){
         dep = new Set()
         keysMap.set(key,dep)
     }
-    dep.add(activeEffect)
-    activeEffect.deps.push(dep)
+
+    if(!dep.has(activeEffect)){
+        dep.add(activeEffect)
+        activeEffect.deps.push(dep)
+    }
+
 
 }
 export function trigger(obj,key) {

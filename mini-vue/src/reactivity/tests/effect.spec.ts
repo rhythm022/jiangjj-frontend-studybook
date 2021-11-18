@@ -74,7 +74,8 @@ describe('effect', () => {
         expect(dummy).toBe(2)
         
         //
-        runner();// 执行effect。effect读的时候，track上了
+        runner();// stopped effect 不会被 runner 重启
+        obj.foo++
         expect(dummy).toBe(3)
     })
 

@@ -47,7 +47,8 @@
       - leetcode 226 invert-binary-tree [📺b站](https://www.bilibili.com/video/BV1CP4y1G7Fs/)
       - leetcode 746 min-cost-climbing-stairs [📺b站](https://www.bilibili.com/video/BV1iP4y1G7Q6/)
       - leetcode 121 best-time-to-buy-and-sell-stock [📺b站](https://www.bilibili.com/video/BV1HQ4y1U7pT/)
- 
+   - 第五周
+      - 我对二叉树前序遍历/中序遍历/后序遍历的理论理解 [掘金](https://juejin.cn/post/7033937508664606727/) 
  
  
    > 其他

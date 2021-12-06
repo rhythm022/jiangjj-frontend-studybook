@@ -49,7 +49,20 @@
       - leetcode 121 best-time-to-buy-and-sell-stock [📺b站](https://www.bilibili.com/video/BV1HQ4y1U7pT/)
    - 第五周
       - 我对二叉树前序遍历/中序遍历/后序遍历的理论理解 [掘金](https://juejin.cn/post/7033937508664606727/) 
- 
+   - 第六周
+      - leetcode 143 reorder-list [📺b站](https://www.bilibili.com/video/BV17R4y1s7AC)
+      - leetcode 946 validate-stack-sequences [📺b站](https://www.bilibili.com/video/BV1v3411476a)
+      - leetcode 445 add-two-numbers-ii [📺b站](https://www.bilibili.com/video/BV1ZU4y1N7fY)
+      - leetcode 969 pancake-sorting [📺b站](https://www.bilibili.com/video/BV1kR4y1s7L2)
+      - leetcode 844 backspace-string-compare [📺b站](https://www.bilibili.com/video/BV1p34y1X7pQ?spm_id_from=333.999.0.0)
+      - leetcode 面试题 17.09. 第 k 个数 get-kth-magic-number-lcci [📺b站](https://www.bilibili.com/video/BV1Wq4y1q7TZ)
+      - leetcode 682 baseball-game [📺b站](https://www.bilibili.com/video/BV1mL41177Tf)
+      - leetcode 面试题 02.03. 删除中间节点 delete-middle-node-lcci [📺b站](https://www.bilibili.com/video/BV12P4y137x4)
+      - leetcode 1021 remove-outermost-parentheses [📺b站](https://www.bilibili.com/video/BV1iZ4y197Pg)
+      - leetcode 面试题 03.04. 化栈为队 implement-queue-using-stacks-lcci [📺b站](https://www.bilibili.com/video/BV1Gq4y1q78d)
+      - leetcode 859 buddy-strings [📺b站](https://www.bilibili.com/video/BV1yq4y1z75K)
+      - leetcode 860 lemonade-change [📺b站](https://www.bilibili.com/video/BV1nq4y1q7KD)
+
  
    > 其他
     - 第四周

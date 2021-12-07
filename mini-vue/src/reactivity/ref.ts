@@ -55,6 +55,16 @@ export function proxyRefs(objectWithRefs){
         get(target,key){
             // 如果 get ref 则返回 ref.value，否则要啥返回啥
             return unRef(Reflect.get(target,key))
-        }
+        },
+        set(target,key,value){
+            // 如果 set ref v 则set ref.value = v ，否则要改啥改啥
+            if(isRef(target[key]) && !isRef(value)){
+                return (target[key].value = value)
+            }else{
+                return Reflect.set(target,key,value)
+            }
+
+
+        },
     })
 }

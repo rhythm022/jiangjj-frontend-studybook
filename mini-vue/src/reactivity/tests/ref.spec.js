@@ -69,7 +69,14 @@ describe('ref',()=>{
 
         const proxy = proxyRefs(user)
 
-        expect(proxy.age).toBe(10)
+        expect(proxy.age).toBe(10)// 自动解引用
         expect(proxy.name).toBe('xiaohong')
+
+        proxy.age = 20
+        expect(proxy.age).toBe(20)// 自动修改ref值
+        expect(user.age.value).toBe(20)
+        proxy.age = ref(30)
+        expect(proxy.age).toBe(30)// 自动修改ref值
+        expect(user.age.value).toBe(30)
     })
 })

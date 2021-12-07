@@ -1,15 +1,17 @@
-import { isObject } from "../../shared"
+import { extend, isObject } from "../../shared"
 import { track, trigger } from "./effect"
 import { ReactiveFlags,reactive,readonly } from "./reactive"
 
 
 
-function createGetter(isReadonly = false) {
+function createGetter(isReadonly = false,isShallow = false) {
     return function get(obj, key) {
-        const res = Reflect.get(obj, key)
-
         if(key === ReactiveFlags.IS_REACTIVE)return !isReadonly
         if(key === ReactiveFlags.IS_READONLY)return isReadonly
+
+        const res = Reflect.get(obj, key)
+
+        if(isShallow && isReadonly)return res
         if (!isReadonly) {
             // 收集effect
             // console.log('track',obj,key)
@@ -51,3 +53,9 @@ export const readonlyHandler = {
         return true
     }
 }
+const shallowReadonlyGet = createGetter(true,true)
+
+export const shallowReadonlyHandler =extend({},readonlyHandler,{
+    get: shallowReadonlyGet,
+
+})

@@ -59,16 +59,25 @@ export function track(obj,key){
         keysMap.set(key,dep)
     }
 
+    trackEffects(dep)
+
+
+}
+
+export function trackEffects(dep){
+    if(!enableTrack) return
+
     if(!dep.has(activeEffect)){
         dep.add(activeEffect)
         activeEffect.deps.push(dep)
     }
-
-
 }
 export function trigger(obj,key) {
     let keysMap = objMap.get(obj)
     let dep = keysMap.get(key)
+    triggerEffects(dep) 
+}
+export function triggerEffects(dep) {
     for(const effect of dep){
         if(effect.scheduler){
             effect.scheduler()

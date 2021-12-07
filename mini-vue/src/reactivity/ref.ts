@@ -50,3 +50,11 @@ export function isRef(ref) {
 export function unRef(ref) {
     return isRef(ref) ? ref.value : ref
 }
+export function proxyRefs(objectWithRefs){
+    return new Proxy(objectWithRefs,{
+        get(target,key){
+            // 如果 get ref 则返回 ref.value，否则要啥返回啥
+            return unRef(Reflect.get(target,key))
+        }
+    })
+}

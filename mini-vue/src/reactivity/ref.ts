@@ -7,7 +7,7 @@ class RefImp{
     private _rawValue: any;
     
     constructor(value){
-        this._value = isObject(value) ?  reactive(value) : value
+        this._value = convert(value)
         this._rawValue = value
 
         this.dep = new Set()
@@ -19,8 +19,8 @@ class RefImp{
     }
     set value(value){
         if(!hasChanged(value,this._rawValue))return 
-
-        this._value = isObject(value) ?  reactive(value) : value
+        
+        this._value = convert(value)
         this._rawValue = value   
          
         triggerEffects(this.dep)
@@ -34,6 +34,10 @@ function trackRefValue(ref){
     }
 
 
+}
+
+function convert(value){
+    return isObject(value) ?  reactive(value) : value
 }
 export function ref(value) {
     return new RefImp(value)

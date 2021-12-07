@@ -45,7 +45,7 @@ function clearUpEffect(effect){
     effect.deps.length = 0
 }
 export function track(obj,key){
-    if(!enableTrack) return
+    if(!isTracking()) return
 
     let keysMap = objMap.get(obj)
     if(!keysMap){
@@ -63,9 +63,10 @@ export function track(obj,key){
 
 
 }
-
+export function isTracking(){
+    return enableTrack
+}
 export function trackEffects(dep){
-    if(!enableTrack) return
 
     if(!dep.has(activeEffect)){
         dep.add(activeEffect)

@@ -5,7 +5,7 @@ class RefImp{
     private _value: any;
     public dep// 不同于之前把dep放在effect.ts
     private _rawValue: any;
-    
+    public __v_isRef = true
     constructor(value){
         this._value = convert(value)
         this._rawValue = value
@@ -19,7 +19,7 @@ class RefImp{
     }
     set value(value){
         if(!hasChanged(value,this._rawValue))return 
-        
+
         this._value = convert(value)
         this._rawValue = value   
          
@@ -42,3 +42,8 @@ function convert(value){
 export function ref(value) {
     return new RefImp(value)
 }
+
+export function isRef(ref) {
+    return !!ref.__v_isRef
+}
+

@@ -62,6 +62,11 @@
       - leetcode 面试题 03.04. 化栈为队 implement-queue-using-stacks-lcci [📺b站](https://www.bilibili.com/video/BV1Gq4y1q78d)
       - leetcode 859 buddy-strings [📺b站](https://www.bilibili.com/video/BV1yq4y1z75K)
       - leetcode 860 lemonade-change [📺b站](https://www.bilibili.com/video/BV1nq4y1q7KD)
+   - 第八周
+      - leetcode 105 construct-binary-tree-from-preorder-and-inorder-traversal [📺b站](https://www.bilibili.com/video/BV1cD4y1c7jx)
+      - leetcode 剑指 Offer 54. 二叉搜索树的第k大节点 [📺b站](https://www.bilibili.com/video/BV1b34y167qM)
+      - leetcode 968 binary-tree-cameras [📺b站](https://www.bilibili.com/video/BV1f44y1E7AZ)
+      - leetcode 144 binary-tree-preorder-traversal [📺b站](https://www.bilibili.com/video/BV19Z4y1Q7oK)
 
  
    > 其他

@@ -67,7 +67,14 @@
       - leetcode 剑指 Offer 54. 二叉搜索树的第k大节点 [📺b站](https://www.bilibili.com/video/BV1b34y167qM)
       - leetcode 968 binary-tree-cameras [📺b站](https://www.bilibili.com/video/BV1f44y1E7AZ)
       - leetcode 144 binary-tree-preorder-traversal [📺b站](https://www.bilibili.com/video/BV19Z4y1Q7oK)
-
+      - leetcode剑指 Offer 10- I. 斐波那契数列 [📺b站](https://www.bilibili.com/video/BV1pm4y197nc/)
+      - leetcode 779 k-th-symbol-in-grammar [📺b站](https://www.bilibili.com/video/BV11R4y1W7QQ/)
+      - leetcode 662. maximum-width-of-binary-tree [📺b站](https://www.bilibili.com/video/BV1Aq4y1m7Ka/)
+      - leetcode 面试题 02.08. 环路检测 [📺b站](https://www.bilibili.com/video/BV13u411S7fY/)
+      - leetcode 面试题 02.04. 分割链表 [📺b站](https://www.bilibili.com/video/BV1B44y1J779/)
+      - leetcode 112 path-sum [📺b站](https://www.bilibili.com/video/BV1qL41157oU/)
+      - leetcode 剑指 Offer 18. 删除链表的节点 [📺b站](https://www.bilibili.com/video/BV1SY411H78Y/)
+      - leetcode 剑指 Offer 26. 树的子结构 [📺b站](https://www.bilibili.com/video/BV1Eq4y1m7se/)
  
    > 其他
     - 第四周

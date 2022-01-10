@@ -75,7 +75,13 @@
       - leetcode 112 path-sum [📺b站](https://www.bilibili.com/video/BV1qL41157oU/)
       - leetcode 剑指 Offer 18. 删除链表的节点 [📺b站](https://www.bilibili.com/video/BV1SY411H78Y/)
       - leetcode 剑指 Offer 26. 树的子结构 [📺b站](https://www.bilibili.com/video/BV1Eq4y1m7se/)
- 
+    - 第九周
+      - leetcode 107 binary-tree-level-order-traversal-ii [📺b站](https://www.bilibili.com/video/BV1yb4y1Y72r/)
+      - leetcode 103 binary-tree-zigzag-level-order-traversal [📺b站](https://www.bilibili.com/video/BV1si4y1R7Bz/)
+      - leetcode 剑指 Offer 32 - II. 从上到下打印二叉树 II [📺b站](https://www.bilibili.com/video/BV1fT4y1f7MG/)
+      - leetcode 703 kth-largest-element-in-a-stream [📺b站](https://www.bilibili.com/video/BV1yi4y1R7jU/)
+
+
    > 其他
     - 第四周
       - JS通识: 产生式 [掘金](https://juejin.cn/post/7033004725305884703)

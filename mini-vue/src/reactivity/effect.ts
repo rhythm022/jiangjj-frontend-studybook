@@ -3,7 +3,7 @@ import { extend } from "../../shared"
 const objMap = new Map()
 let activeEffect
 let enableTrack
-class ReactiveEffect{
+export class ReactiveEffect{
     private _fn: any
     onStop?: () => void
     deps = []

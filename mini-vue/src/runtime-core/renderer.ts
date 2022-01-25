@@ -1,4 +1,4 @@
-import { createComponentInstance } from "./component"
+import { createComponentInstance, setupComponent } from "./component"
 
 export function render(vnode,container){
     patch(vnode,container)
@@ -14,6 +14,7 @@ function processComponent(vnode: any, container: any) {
 }
 function mountComponent(vnode: any) {
     const instance = createComponentInstance(vnode)
+  
     setupComponent(instance)
 }
 

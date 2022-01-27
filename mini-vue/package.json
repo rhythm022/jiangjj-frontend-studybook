@@ -1,7 +1,8 @@
 {
   "name": "mini-vue",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "lib/mini-vue.cjs.js",
+  "module": "lib/mini-vue.esm.js",
   "license": "MIT",
   "scripts": {
     "test": "jest --watchAll",

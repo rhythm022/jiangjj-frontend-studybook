@@ -106,3 +106,5 @@ dist
 
 
 .idea/
+mini-vue/lib/mini-vue.cjs.js
+mini-vue/lib/mini-vue.esm.js

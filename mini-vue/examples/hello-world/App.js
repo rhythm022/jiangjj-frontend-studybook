@@ -7,11 +7,11 @@ export const App = {// App 语义：组件
             id:'root',
             class:['red','hard']
         },
-        // "hello mini-vue !!" + this.msg,
-        [
-            h("p",{class:"red"},"hi"),
-            h("p",{class:"blue"},"jiangjj")
-        ]
+        "hello mini-vue !!" + this.msg,
+        // [
+        //     h("p",{class:"red"},"hi"),
+        //     h("p",{class:"blue"},"jiangjj")
+        // ]
         )
     },
     setup(){

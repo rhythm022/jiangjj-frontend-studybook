@@ -29,9 +29,9 @@ function mountComponent(vnode: any,container) {
 function setupRenderEffect(instance: any,container) {
     // 返回的 subTree 又是 vnode，vnode 稍后会被 patch(vnode,container)，
     // 如果 h 出来的 vnode 是 element 类型，则会 mountElement 
-    const subTree = instance.render() // 调用 render 相当于 开箱 
+    const subTree = instance.render.call(instance.proxy) // 调用 render 相当于 开箱 
 
-    patch(subTree,container)// cool!! 目前来看，组件只是给它的 vnode 提供环境，环境是 setup结果 
+    patch(subTree,container)// cool!! 目前来看，组件只是给它的 vnode 提供环境，环境是 instance.proxy(setup结果)
 }
 
 function processElement(vnode: any, container: any) {

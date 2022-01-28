@@ -3,6 +3,7 @@ import { h } from '../../lib/mini-vue.esm.js'
 
 export const App = {// App 语义：组件
     render(){
+        window.self = this
         return h("div",{
             id:'root',
             class:['red','hard']

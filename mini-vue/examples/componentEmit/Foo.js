@@ -1,11 +1,11 @@
 import { h } from "../../lib/mini-vue.esm.js"
 
 export const Foo = {
-    setup(props){
+    setup(props,{emit}){
         // props 是 reactive readonly
 
         const emitAdd = ()=>{
-            console.log('emit add')
+            emit('add',1)
         }
 
         return {

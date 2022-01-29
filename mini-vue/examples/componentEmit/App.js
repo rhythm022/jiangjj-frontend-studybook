@@ -7,6 +7,10 @@ export const App = {// App 语义：组件
     
     },
     render(){
-        return h("div",{},[h(Foo,{count:1}) ])
+        return h("div",{},[h(Foo,{
+            onAdd(...args){
+                console.log(...args)
+            }
+        })])
     }
 }

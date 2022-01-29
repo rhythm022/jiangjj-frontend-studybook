@@ -2,6 +2,7 @@ import { shallowReadonly } from "../reactivity/reactive"
 import { emit } from "./componentEmit"
 import { initProps } from "./componentProps"
 import { publicInstanceProxyHandler } from "./componentPublicInstance"
+import { initSlots } from "./componentSlots"
 
 export function createComponentInstance(vnode){// 组件是 vnode 的一类，用户定义的组件被磨成 vnode 。组件类型的 vnode 生成 组件实例
     const instance = {
@@ -9,6 +10,7 @@ export function createComponentInstance(vnode){// 组件是 vnode 的一类，�
         type:vnode.type,
         setupState:{},
         props:{}, // 和 vnode 的 props 是两码事
+        slots:{},
         emit:()=>{}
     }
 
@@ -19,7 +21,7 @@ export function createComponentInstance(vnode){// 组件是 vnode 的一类，�
 
 export function setupComponent(instance){
     initProps(instance,instance.vnode.props) // init instance.props
-    // initSlots()
+    initSlots(instance,instance.vnode.children)
     setupStatefulComponent(instance)
 }
 

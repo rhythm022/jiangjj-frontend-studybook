@@ -1,4 +1,4 @@
-import { h } from "../../lib/mini-vue.esm.js"
+import { h,renderSlots } from "../../lib/mini-vue.esm.js"
 
 export const Foo = {
     setup(){},
@@ -6,6 +6,6 @@ export const Foo = {
         const p = h('p',{},'p-foo')
 
 
-        return h('div',{},[p,this.$slots])
+        return h('div',{},[p,renderSlots(this.$slots)])
     }
 }

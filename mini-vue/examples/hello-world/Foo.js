@@ -7,6 +7,6 @@ export const Foo = {
         console.log(props)
     },
     render(){
-        return h('div',{}, this.count)
+        return h('div',{},'Foo:' + this.count)
     }
 }

@@ -6,7 +6,10 @@ export const App = {// App 语义：组件
         window.self = this
         return h("div",{
             id:'root',
-            class:['red','hard']
+            class:['red','hard'],
+            onClick:function onClick() {
+                console.log('click')
+            }
         },
         "hello mini-vue !!" + this.msg,
         // [

@@ -1,4 +1,5 @@
 import { h } from '../../lib/mini-vue.esm.js'
+import { Foo } from './Foo.js'
 
 
 export const App = {// App 语义：组件
@@ -11,7 +12,12 @@ export const App = {// App 语义：组件
                 console.log('click')
             }
         },
-        "hello mini-vue !!" + this.msg,
+        [
+            h(Foo,{count:1})
+        ]
+        // string-children
+        // "hello mini-vue !!" + this.msg,
+        // array-children
         // [
         //     h("p",{class:"red"},"hi"),
         //     h("p",{class:"blue"},"jiangjj")

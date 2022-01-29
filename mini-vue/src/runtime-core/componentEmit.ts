@@ -1,4 +1,4 @@
-import {  capitalize } from "../../shared/index"
+import {  camelize, capitalize } from "../../shared/index"
 
 export function emit(instance,event,...args){
     const { props } = instance
@@ -6,7 +6,7 @@ export function emit(instance,event,...args){
         return str ? 'on' + capitalize(str) : ''
     }
 
-    const handlerName = toHandlerKey(event)
+    const handlerName = toHandlerKey(camelize(event))
 
     const handler = props[handlerName]
     handler && handler(...args)

@@ -5,7 +5,8 @@ export const Foo = {
         // props 是 reactive readonly
 
         const emitAdd = ()=>{
-            emit('add',1)
+            emit('add-one',1)
+            emit('addOne',-1)
         }
 
         return {

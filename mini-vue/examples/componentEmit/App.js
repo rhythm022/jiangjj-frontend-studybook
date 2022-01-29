@@ -8,7 +8,7 @@ export const App = {// App 语义：组件
     },
     render(){
         return h("div",{},[h(Foo,{
-            onAdd(...args){
+            onAddOne(...args){
                 console.log(...args)
             }
         })])

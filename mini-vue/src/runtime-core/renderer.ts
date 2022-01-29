@@ -23,19 +23,17 @@ function processComponent(vnode: any, container: any) {
     mountComponent(vnode,container)
 }
 function mountComponent(vnode: any,container) {
-    const instance = createComponentInstance(vnode)// 可以理解为 createComponentInstance 返回了一个空对象 {}
-  
-    setupComponent(instance) // 把 setup结果 和 render函数 放入 {}空对象
+    const instance = createComponentInstance(vnode)// 创建 {}空对象
+
+    setupComponent(instance) // init {}空对象
     setupRenderEffect(instance,container) // mount界面
 }
 
 function setupRenderEffect(instance: any,container) {
-    // 返回的 subTree 又是 vnode，vnode 稍后会被 patch(vnode,container)，
-    // 如果 h 出来的 vnode 是 element 类型，则会 mountElement 
-    const subTree = instance.render.call(instance.proxy) // 调用 render 相当于 开箱 
+    const subTree = instance.render.call(instance.proxy) // render函数 的上下文是 instance.proxy，这导致 subTree 中的 子vnode 的 props 来源可以是 父组件
 
-    patch(subTree,container)// cool!! 目前来看，组件实例只是给它的 vnode(subTree) 提供环境，环境是 instance.proxy(setup结果)
-    
+    patch(subTree,container)
+
     instance.vnode.el = subTree.el
 }
 
@@ -44,7 +42,7 @@ function processElement(vnode: any, container: any) {
 }
 
 function mountElement(vnode: any, container: any) {
-    const el = vnode.el = document.createElement(vnode.type) // 这里的 vnode 是 subTree
+    const el = vnode.el = document.createElement(vnode.type) // 这里的 vnode 是element类型
 
     const { children,shapeFlag } = vnode
 
@@ -52,7 +50,7 @@ function mountElement(vnode: any, container: any) {
         el.textContent = children
     }else if(shapeFlag & ShapeFlags.ARRAY_CHILDREN){
         mountChildren(vnode,el)
-  
+
     }
 
     const { props } = vnode

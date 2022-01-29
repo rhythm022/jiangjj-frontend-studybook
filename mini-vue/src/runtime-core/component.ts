@@ -3,64 +3,53 @@ import { emit } from "./componentEmit"
 import { initProps } from "./componentProps"
 import { publicInstanceProxyHandler } from "./componentPublicInstance"
 
-export function createComponentInstance(vnode){// vnode 生成 组件实例
-    const component = {
+export function createComponentInstance(vnode){// 组件是 vnode 的一类，用户定义的组件被磨成 vnode 。组件类型的 vnode 生成 组件实例
+    const instance = {
         vnode,
         type:vnode.type,
         setupState:{},
         props:{}, // 和 vnode 的 props 是两码事
-        emit:()=>{} 
+        emit:()=>{}
     }
 
-    component.emit = emit.bind(null,component) as any // 先定义函数，再把函数挂到实例上(变成方法) interesting!!
+    instance.emit = emit.bind(null,instance) as any // init instance.emit
 
-    return component
+    return instance
 }
 
 export function setupComponent(instance){
-    initProps(instance,instance.vnode.props)
+    initProps(instance,instance.vnode.props) // init instance.props
     // initSlots()
     setupStatefulComponent(instance)
 }
 
 function setupStatefulComponent(instance: any) {
-    // 这个 Component 就是一开始用户定义的那个组件, 现在拿到他
-    // 这个 Component 一开始被包在 vnode 中, vnode 然后又被包在instance,现在解放出来
-    const Component = instance.vnode.type 
+    const Component = instance.vnode.type
 
-    instance.proxy = new Proxy(
-        {instance},// ctx cool!!
+    instance.proxy = new Proxy( // init instance.proxy
+        {instance},
         publicInstanceProxyHandler
     )
 
-    const { setup } = Component
-
-    if(setup){
-        const setupResult = setup(shallowReadonly(instance.props),{
-            emit:instance.emit
-        })
-
-        handleSetupResult(instance,setupResult)
-    }
+    const setupResult = Component.setup(shallowReadonly(instance.props),{// exec initFunc
+        emit:instance.emit
+    })
+    handleSetupResult(instance,setupResult)
 }
 function handleSetupResult(instance,setupResult: any) {
     // funciton object
-    //TODO function
-
+    // TODO function
     if(typeof setupResult === 'object'){
-        instance.setupState = setupResult // 把 setupResult 注入\放到 组件上下文 中 
+        instance.setupState = setupResult // init instance.setupState
     }
 
     finishComponentSetup(instance)
 }
 
 function finishComponentSetup(instance: any) {
-    const Component = instance.vnode.type 
+    const Component = instance.vnode.type
 
-    const { render } = Component
+    instance.render = Component.render // init instance.render
 
-    if(render){
-        instance.render = render // 把组件的 render 扔到 组件实例
-    }
 }
 

@@ -7,9 +7,14 @@ export const Foo = {
 
 
         return h('div',{},[
-            renderSlots(this.$slots,'slotA'),
+            renderSlots(this.$slots,'slotA',{
+                feat1:'inner_sth'
+            }),
             p,
-            renderSlots(this.$slots,'slotB')
+            renderSlots(this.$slots,'slotB',{
+                feat2:'inner_sth'
+
+            })
         ])
     }
 }

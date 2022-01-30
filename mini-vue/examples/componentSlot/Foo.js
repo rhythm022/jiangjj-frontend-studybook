@@ -6,6 +6,10 @@ export const Foo = {
         const p = h('p',{},'p-foo')
 
 
-        return h('div',{},[p,renderSlots(this.$slots)])
+        return h('div',{},[
+            renderSlots(this.$slots,'slotA'),
+            p,
+            renderSlots(this.$slots,'slotB')
+        ])
     }
 }

@@ -21,7 +21,7 @@ export function createComponentInstance(vnode){// 组件是 vnode 的一类，�
 
 export function setupComponent(instance){
     initProps(instance,instance.vnode.props) // init instance.props
-    initSlots(instance,instance.vnode.children)
+    initSlots(instance,instance.vnode.children) // init instance.slots
     setupStatefulComponent(instance)
 }
 

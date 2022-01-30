@@ -15,3 +15,5 @@ export const camelize = (str:string)=>{
         return c ? c.toUpperCase() : ''
     })
 }
+
+export const enableArray = value => Array.isArray(value) ? value : [value]

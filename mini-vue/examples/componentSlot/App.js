@@ -1,4 +1,4 @@
-import { h } from '../../lib/mini-vue.esm.js'
+import { h,createTextVNode } from '../../lib/mini-vue.esm.js'
 import { Foo } from './Foo.js'
 
 
@@ -17,6 +17,6 @@ export const App = {// App 语义：组件
             slotB:() => h('p',{},'slot2B')
         })
 
-        return h('div',{},[bar,foo1,foo2])
+        return h('div',{},[bar,foo1,foo2,createTextVNode('from jiangjj')])
     }
 }

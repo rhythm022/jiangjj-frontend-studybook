@@ -33,9 +33,12 @@ function setupStatefulComponent(instance: any) {
         publicInstanceProxyHandler
     )
 
+    setCurrentInstance(instance)
     const setupResult = Component.setup(shallowReadonly(instance.props),{// exec initFunc
         emit:instance.emit
     })
+    setCurrentInstance(null)
+    
     handleSetupResult(instance,setupResult)
 }
 function handleSetupResult(instance,setupResult: any) {
@@ -55,3 +58,11 @@ function finishComponentSetup(instance: any) {
 
 }
 
+let currentInstance = null
+export function getCurrentInstance(){
+    return currentInstance 
+}
+
+function setCurrentInstance(current){
+    currentInstance = current
+}

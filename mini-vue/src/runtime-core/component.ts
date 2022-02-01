@@ -4,13 +4,16 @@ import { initProps } from "./componentProps"
 import { publicInstanceProxyHandler } from "./componentPublicInstance"
 import { initSlots } from "./componentSlots"
 
-export function createComponentInstance(vnode){// 组件是 vnode 的一类，用户定义的组件被磨成 vnode 。组件类型的 vnode 生成 组件实例
+export function createComponentInstance(vnode,parent){// 组件是 vnode 的一类，用户定义的组件被磨成 vnode 。组件类型的 vnode 生成 组件实例
+   console.log('parent: ',parent)
     const instance = {
         vnode,
         type:vnode.type,
         setupState:{},
         props:{}, // 和 vnode 的 props 是两码事
         slots:{},
+        provides:{},
+        parent,
         emit:()=>{}
     }
 

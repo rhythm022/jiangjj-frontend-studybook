@@ -3,8 +3,8 @@ import { ShapeFlags } from "../../shared/ShapeFlags"
 import { createComponentInstance, setupComponent } from "./component"
 import { Fragment,Text } from "./vnode"
 
-export function render(vnode,container,parentComponent){
-    patch(vnode,container,parentComponent)
+export function render(vnode,container){
+    patch(vnode,container,null)
 
 }
 

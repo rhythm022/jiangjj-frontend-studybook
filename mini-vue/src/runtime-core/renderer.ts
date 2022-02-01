@@ -1,6 +1,7 @@
 import { isObject } from "../../shared/index"
 import { ShapeFlags } from "../../shared/ShapeFlags"
 import { createComponentInstance, setupComponent } from "./component"
+import { Fragment } from "./vnode"
 
 export function render(vnode,container){
     patch(vnode,container)
@@ -8,15 +9,25 @@ export function render(vnode,container){
 }
 
 function patch(vnode,container){ // 职责：根据 vnode 更新(mount) container位置 的界面
-    const { shapeFlag } = vnode
+    const { shapeFlag,type } = vnode
 
-    if(shapeFlag & ShapeFlags.ELEMENT){
-        processElement(vnode,container)
+    switch (type){
+        case Fragment:
+            processFragment(vnode,container)
 
-    }else if(shapeFlag & ShapeFlags.STATEFUL_COMPONENT){
-        processComponent(vnode,container)
+            break
+        default:
+            if(shapeFlag & ShapeFlags.ELEMENT){
+                processElement(vnode,container)
+        
+            }else if(shapeFlag & ShapeFlags.STATEFUL_COMPONENT){
+                processComponent(vnode,container)
+        
+            }
+            break
 
     }
+
 }
 
 function processComponent(vnode: any, container: any) {
@@ -71,5 +82,9 @@ function mountChildren(vnode: any, container: any) {
     vnode.children.forEach(vnode=>{
         patch(vnode,container)
     })
+}
+
+function processFragment(vnode: any, container: any) {
+    mountChildren(vnode,container)
 }
 

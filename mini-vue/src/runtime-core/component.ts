@@ -12,7 +12,7 @@ export function createComponentInstance(vnode,parent){// 组件是 vnode 的一�
         setupState:{},
         props:{}, // 和 vnode 的 props 是两码事
         slots:{},
-        provides:{},
+        provides:parent ? parent.provides: {}, // cool!!
         parent,
         emit:()=>{}
     }

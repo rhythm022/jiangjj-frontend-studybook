@@ -3,6 +3,8 @@ import { h,provide,inject } from '../../lib/mini-vue.esm.js'
 export const App = {// App 语义：组件
     name:'App',
     setup(){
+        provide('sth','sthValFromApp')
+        provide('foo','fooValFromApp')
     },
     render(){
      return h(Provider)
@@ -13,11 +15,19 @@ export const App = {// App 语义：组件
 const Provider = {// App 语义：组件
     name:'App',
     setup(){
-        provide('foo','fooVal')
-        provide('bar','barVal')
+        provide('foo','fooFromProvider')
+
+        const foo = inject('foo')
+
+        return {
+            foo
+        }
     },
     render(){
-     return h(Consumer)
+     return h('div',{},[
+         h('div',{},'Provider-foo: ' + this.foo),
+         h(Consumer)
+     ])
     }
 }
 
@@ -25,16 +35,16 @@ const Provider = {// App 语义：组件
 const Consumer = {
     setup(){
         const foo  = inject('foo')
-        const bar  = inject('bar')
+        const sth  = inject('sth')
 
         return {
             foo,
-            bar
+            sth
         }
     },
     render(){
         return h('div',{},
-        'foo: ' + this.foo + ' bar: ' + this.bar,
+        'foo: ' + this.foo + ' sth: ' + this.sth,
         )
     }
 }

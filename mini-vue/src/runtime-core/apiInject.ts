@@ -15,12 +15,17 @@ export function provide(key,value){
 }
 
 
-export function inject(key){
+export function inject(key,defaultValue){
     const cmpIns:any = getCurrentInstance()
     if(cmpIns){
         const parentProvides = cmpIns.parent.provides
        
-        return parentProvides[key]
+        if(key in parentProvides){
+            return parentProvides[key]
+
+        }else if(defaultValue){
+            return defaultValue
+        }
 
     }
 }

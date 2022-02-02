@@ -36,15 +36,18 @@ const Consumer = {
     setup(){
         const foo  = inject('foo')
         const sth  = inject('sth')
+        const baz  = inject('baz','bazDefault')
 
         return {
             foo,
-            sth
+            sth,
+            baz
         }
     },
     render(){
         return h('div',{},
-        'foo: ' + this.foo + ' sth: ' + this.sth,
+        // 'foo: ' + this.foo + ' sth: ' + this.sth,
+        'baz: ' + this.baz
         )
     }
 }

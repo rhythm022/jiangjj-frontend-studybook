@@ -1,6 +1,7 @@
 import { isObject } from "../../shared/index"
 import { ShapeFlags } from "../../shared/ShapeFlags"
 import { createComponentInstance, setupComponent } from "./component"
+import { createAppAPI } from "./createApp"
 import { Fragment,Text } from "./vnode"
 
 
@@ -106,7 +107,13 @@ export function createRenderer(options){
     }
     
     return {
-        
+        // 原来 createApp 里调用 render 是固定的
+        // 现在不固定了：
+        // 所以，需要动态化 createApp ，所以，有了 createAppAPI
+        //       需要动态化 render ，所以，有了 createRenderer
+        // createRenderer 本可以只 return render
+        // 但现在把 调用createAppAPI 的职责给他，这样也可以，导致现在 createRenderer return createApp
+        createApp:createAppAPI(render) // cool!! difficult!!
     }    
 }
 

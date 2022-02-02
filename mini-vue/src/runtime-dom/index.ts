@@ -19,8 +19,17 @@ function insert(el,container){
     container.append(el)
 }
 
-const renderer = createRenderer({
+
+// 所以，runtime-dom 在 runtime-core 的上层 !!
+// runtime-core 有点像 runtime-dom 的抽象父类
+const renderer:any = createRenderer({
     createElement,
     patchProp,
     insert,
 })
+
+export function createApp(...args){
+    return renderer.createApp(...args)
+}
+
+export * from '../runtime-core'

@@ -14,28 +14,29 @@ export function createRenderer(options){
     } = options
 
     function render(vnode,container){
-        patch(vnode,container,null)
+        patch(null,vnode,container,null)
     
     }
-    
-    function patch(vnode,container,parentComponent){ // 职责：根据 vnode 更新(mount) container位置 的界面
-        const { shapeFlag,type } = vnode
+    // n1 => 老的
+    // n2 => 新的
+    function patch(n1,n2,container,parentComponent){ // 职责：根据 n2 更新(mount) container位置 的界面
+        const { shapeFlag,type } = n2
     
         switch (type){
             case Fragment:
-                processFragment(vnode,container,parentComponent)
+                processFragment(n1,n2,container,parentComponent)
     
                 break
             case Text:
-                processText(vnode,container)
+                processText(n1,n2,container)
     
                 break
             default:
                 if(shapeFlag & ShapeFlags.ELEMENT){
-                    processElement(vnode,container,parentComponent)
+                    processElement(n1,n2,container,parentComponent)
             
                 }else if(shapeFlag & ShapeFlags.STATEFUL_COMPONENT){
-                    processComponent(vnode,container,parentComponent)
+                    processComponent(n1,n2,container,parentComponent)
             
                 }
                 break
@@ -44,30 +45,55 @@ export function createRenderer(options){
     
     }
     
-    function processComponent(vnode: any, container: any,parentComponent) {
-        mountComponent(vnode,container,parentComponent)
+    function processComponent(n1,n2: any, container: any,parentComponent) {
+        mountComponent(n2,container,parentComponent)
     }
-    function mountComponent(vnode: any,container,parentComponent) {
-        const instance = createComponentInstance(vnode,parentComponent)// 创建 {}空对象
+    function mountComponent(initialVNode: any,container,parentComponent) {
+        const instance = createComponentInstance(initialVNode,parentComponent)// 创建 {}空对象
     
         setupComponent(instance) // init {}空对象
-        setupRenderEffect(instance,container) // mount界面 // 界面渲染的入口
+        setupRenderEffect(instance,initialVNode,container) // mount界面 // 界面渲染的入口
     }
     
-    function setupRenderEffect(instance: any,container) {
+    function setupRenderEffect(instance: any,initialVNode,container) {
         effect(()=>{// 一个 setupResult，多个 subTree，因为多次都新调用 render
-            const subTree = instance.render.call(instance.proxy) // render函数 的上下文是 instance.proxy，这导致 subTree 中的 子vnode 的 props 来源可以是 父组件
+            if(!instance.isMounted){
+                const subTree = instance.subTree = instance.render.call(instance.proxy) // render函数 的上下文是 instance.proxy，这导致 subTree 中的 子vnode 的 props 来源可以是 父组件
     
-            patch(subTree,container,instance) // special!!
-        
-            instance.vnode.el = subTree.el
+                patch(null,subTree,container,instance) // special!!
+            
+                initialVNode.el = subTree.el
+
+                instance.isMounted = true
+            }else{
+                const subTree = instance.render.call(instance.proxy) 
+
+                const prevSubTree = instance.subTree
+
+                instance.subTree = subTree
+
+                patch(prevSubTree,subTree,container,instance)
+
+            }
+          
         })     
     }
     
-    function processElement(vnode: any, container: any,parentComponent) {
-        mountElement(vnode,container,parentComponent)
+    function processElement(n1,n2: any, container: any,parentComponent) {
+        if(!n1){
+            mountElement(n2,container,parentComponent)
+
+        }else{
+            patchElement(n1,n2,container)
+        }
     }
     
+    function patchElement(n1,n2,container){
+        console.log('patchElement')
+        console.log('n1: ',n1)
+        console.log('n2: ',n2)
+    }
+
     function mountElement(vnode: any, container: any,parentComponent) {
         const el = vnode.el = createElement(vnode.type) // 这里的 vnode 是element类型
     
@@ -93,18 +119,18 @@ export function createRenderer(options){
     
     function mountChildren(vnode: any, container: any,parentComponent) {
         vnode.children.forEach(vnode=>{
-            patch(vnode,container,parentComponent)
+            patch(null,vnode,container,parentComponent)
         })
     }
     
-    function processFragment(vnode: any, container: any,parentComponent) {
-        mountChildren(vnode,container,parentComponent)
+    function processFragment(n1,n2: any, container: any,parentComponent) {
+        mountChildren(n2,container,parentComponent)
     }
     
-    function processText(vnode: any, container: any) {
-        const {children} = vnode
+    function processText(n1,n2: any, container: any) {
+        const {children} = n2
     
-        const textNode = vnode.el =  document.createTextNode(children)
+        const textNode = n2.el =  document.createTextNode(children)
     
         container.append(textNode)
     }

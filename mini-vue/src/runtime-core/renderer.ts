@@ -1,5 +1,6 @@
 import { isObject } from "../../shared/index"
 import { ShapeFlags } from "../../shared/ShapeFlags"
+import { effect } from "../reactivity"
 import { createComponentInstance, setupComponent } from "./component"
 import { createAppAPI } from "./createApp"
 import { Fragment,Text } from "./vnode"
@@ -50,15 +51,17 @@ export function createRenderer(options){
         const instance = createComponentInstance(vnode,parentComponent)// 创建 {}空对象
     
         setupComponent(instance) // init {}空对象
-        setupRenderEffect(instance,container) // mount界面
+        setupRenderEffect(instance,container) // mount界面 // 界面渲染的入口
     }
     
     function setupRenderEffect(instance: any,container) {
-        const subTree = instance.render.call(instance.proxy) // render函数 的上下文是 instance.proxy，这导致 subTree 中的 子vnode 的 props 来源可以是 父组件
+        effect(()=>{// 一个 setupResult，多个 subTree，因为多次都新调用 render
+            const subTree = instance.render.call(instance.proxy) // render函数 的上下文是 instance.proxy，这导致 subTree 中的 子vnode 的 props 来源可以是 父组件
     
-        patch(subTree,container,instance) // special!!
-    
-        instance.vnode.el = subTree.el
+            patch(subTree,container,instance) // special!!
+        
+            instance.vnode.el = subTree.el
+        })     
     }
     
     function processElement(vnode: any, container: any,parentComponent) {

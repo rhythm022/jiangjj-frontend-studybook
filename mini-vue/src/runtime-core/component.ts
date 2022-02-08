@@ -1,3 +1,4 @@
+import { proxyRefs } from "../reactivity"
 import { shallowReadonly } from "../reactivity/reactive"
 import { emit } from "./componentEmit"
 import { initProps } from "./componentProps"
@@ -48,7 +49,7 @@ function handleSetupResult(instance,setupResult: any) {
     // funciton object
     // TODO function
     if(typeof setupResult === 'object'){
-        instance.setupState = setupResult // init instance.setupState
+        instance.setupState = proxyRefs(setupResult) // init instance.setupState
     }
 
     finishComponentSetup(instance)

@@ -79,13 +79,13 @@ export function trigger(obj,key) {
     triggerEffects(dep) 
 }
 export function triggerEffects(dep) {
-    for(const effect of dep){
+    dep.forEach(effect => {
         if(effect.scheduler){
             effect.scheduler()
         }else{
             effect.run()
         }
-    }
+    });
 }
 export function effect(fn,options:any={}){
     const _effect = new ReactiveEffect(fn,options.scheduler)

@@ -26,6 +26,15 @@ function insert(el,container){
     container.append(el)
 }
 
+function remove(el,container){
+    const parent = el.parentNode
+    if(parent){
+        parent.removeChild(el)
+    }
+}
+function setElementText(el,text){
+    el.textContent = text
+}
 
 // 所以，runtime-dom 在 runtime-core 的上层 !!
 // runtime-core 有点像 runtime-dom 的抽象父类
@@ -33,6 +42,8 @@ const renderer:any = createRenderer({
     createElement,
     patchProp,
     insert,
+    remove,
+    setElementText
 })
 
 export function createApp(...args){

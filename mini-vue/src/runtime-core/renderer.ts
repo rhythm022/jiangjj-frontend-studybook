@@ -113,12 +113,10 @@ export function createRenderer(options){
         if(shapeFlag & ShapeFlags.TEXT_CHILDREN){
             if(prevShapeFlag & ShapeFlags.ARRAY_CHILDREN ){
                 unmountChildren(n1.children,container)
-
+            } 
+            
+            if(c1 !== c2){
                 hostSetElementText(container,c2)
-            } else{
-                if(c1 !== c2){
-                    hostSetElementText(container,c2)
-                }
             }
         }
     }

@@ -146,7 +146,7 @@ export function createRenderer(options){
                 break
             }
 
-            i++;// 从左往右移：停在遇到的第一组不一样
+            i++;// 从左往右移：停在遇到的第一组不一样。此时假如不一样是因为老数组跑完了(交叉了)，新数组还有(没交叉)。就要把"还有的"新增
         }
         while(i <= e1 && i<= e2){
             const n1 = c1[e1]
@@ -160,6 +160,14 @@ export function createRenderer(options){
 
             e1--// 因为 c1/c2 length 不同所以要用 e1/e2 两个指针
             e2--
+        }
+        
+        // 把"还有的"新增（新的比老的多）
+        if(e1 < i){// e1 i 交叉了
+            if(i<= e2){// i e2 没交叉
+                patch(null,c2[i],container,parentComponent)
+                
+            }
         }
     }
 

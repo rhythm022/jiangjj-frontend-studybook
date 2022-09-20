@@ -168,7 +168,10 @@ export function createRenderer(options){
             if(i<= e2){// i e2 没交叉
                 const nextPos = i + 1
                 const anchor = nextPos < l2 ? c2[nextPos].el : null // 此时已存在 c2[nextPos].el
-                patch(null,c2[i],container,parentComponent,anchor)// anchor 是兄弟实 dom、container 是父实dom、c2[i]是 vnode
+                while(i<= e2){
+                    patch(null,c2[i],container,parentComponent,anchor)// anchor 是兄弟实 dom、container 是父实dom、c2[i]是 vnode
+                    i++
+                }
                 
             }
         }

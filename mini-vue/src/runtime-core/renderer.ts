@@ -174,6 +174,13 @@ export function createRenderer(options){
                 }
                 
             }
+        }else{
+            if(i > e2){//反过来 e1 i 没交叉，i e2 交叉了（老的比新的多）
+                while(i<= e1){
+                    hostRemove(c1[i].el)
+                    i++
+                }
+            }
         }
     }
 

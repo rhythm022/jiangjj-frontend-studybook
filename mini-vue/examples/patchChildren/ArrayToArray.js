@@ -38,13 +38,13 @@ import { h, ref } from "../../lib/mini-vue.esm.js"
 // (a b)
 // (a b) c
 // i = 2, e1 = 1, e2 = 2
-const prevChildren = [h("p", { key: "A" }, "A"), h("p", { key: "B" }, "B")];
-const nextChildren = [
-  h("p", { key: "A" }, "A"),
-  h("p", { key: "B" }, "B"),
-  h("p", { key: "C" }, "C"),
-  h("p", { key: "D" }, "D"),
-];
+// const prevChildren = [h("p", { key: "A" }, "A"), h("p", { key: "B" }, "B")];
+// const nextChildren = [
+//   h("p", { key: "A" }, "A"),
+//   h("p", { key: "B" }, "B"),
+//   h("p", { key: "C" }, "C"),
+//   h("p", { key: "D" }, "D"),
+// ];
 
 // 右侧
 // (a b)
@@ -75,12 +75,12 @@ const nextChildren = [
 // (b c)
 // i = 0, e1 = 0, e2 = -1
 
-// const prevChildren = [
-//   h("p", { key: "A" }, "A"),
-//   h("p", { key: "B" }, "B"),
-//   h("p", { key: "C" }, "C"),
-// ];
-// const nextChildren = [h("p", { key: "B" }, "B"), h("p", { key: "C" }, "C")];
+const prevChildren = [
+  h("p", { key: "A" }, "A"),
+  h("p", { key: "B" }, "B"),
+  h("p", { key: "C" }, "C"),
+];
+const nextChildren = [h("p", { key: "B" }, "B"), h("p", { key: "C" }, "C")];
 
 // 5. 对比中间的部分
 // 删除老的  (在老的里面存在，新的里面不存在)

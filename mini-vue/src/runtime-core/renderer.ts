@@ -183,6 +183,8 @@ export function createRenderer(options){
             let s1 = i
             let s2 = i
             
+            const toBePatched = e2 - i + 1;
+            let patched = 0
             const keyToNewIndexMap = new Map();
             for(let i = s2;i <= e2; i++){
                 const cur = c2[i]
@@ -192,12 +194,17 @@ export function createRenderer(options){
             for(let i = s1;i <= e1; i++){// 开展主逻辑
                 const cur = c1[i]
 
+                if(patched>=toBePatched){//?? 旧[div1,div2,div3] 新[div9,div8] 都没有设置key，导致div1/div2都升级成div9，而div3被删掉，怎么收场??
+                    hostRemove(cur.el)
+                    continue
+                }
+
                 let newIndex
                 if(cur.key != null){
                     newIndex = keyToNewIndexMap.get(cur.key)// key 用来找到有复用关系的新节点(的位置)。准确度高于 isSameVNodeType 是 key 的优势
                 }else{
                     for(let j = s2;j <= e2; j++){
-                        if(isSameVNodeType(cur,c2[j])){//?? 问题：旧[div1,div2] 新[div9] 都没有设置key，导致div1/div2都和div9构成复用关系，div1/div2都升级成div9怎么收场
+                        if(isSameVNodeType(cur,c2[j])){
                             newIndex = j
 
                             break
@@ -209,6 +216,7 @@ export function createRenderer(options){
                     hostRemove(cur.el)// 找不到和自己有复用关系的节点，就删除自己的实dom
                 }else{
                     patch(cur,c2[newIndex],container,parentComponent,null)// 找到了就升级自己实dom
+                    patched++
                 }
             }
         }

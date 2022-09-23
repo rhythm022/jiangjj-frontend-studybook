@@ -75,12 +75,12 @@ import { h, ref } from "../../lib/mini-vue.esm.js"
 // (b c)
 // i = 0, e1 = 0, e2 = -1
 
-const prevChildren = [
-  h("p", { key: "A" }, "A"),
-  h("p", { key: "B" }, "B"),
-  h("p", { key: "C" }, "C"),
-];
-const nextChildren = [h("p", { key: "B" }, "B"), h("p", { key: "C" }, "C")];
+// const prevChildren = [
+//   h("p", { key: "A" }, "A"),
+//   h("p", { key: "B" }, "B"),
+//   h("p", { key: "C" }, "C"),
+// ];
+// const nextChildren = [h("p", { key: "B" }, "B"), h("p", { key: "C" }, "C")];
 
 // 5. 对比中间的部分
 // 删除老的  (在老的里面存在，新的里面不存在)
@@ -90,23 +90,23 @@ const nextChildren = [h("p", { key: "B" }, "B"), h("p", { key: "C" }, "C")];
 // D 节点在新的里面是没有的 - 需要删除掉
 // C 节点 props 也发生了变化
 
-// const prevChildren = [
-//   h("p", { key: "A" }, "A"),
-//   h("p", { key: "B" }, "B"),
-//   h("p", { key: "C", id: "c-prev" }, "C"),
-//   h("p", { key: "D" }, "D"),
-//   h("p", { key: "F" }, "F"),
-//   h("p", { key: "G" }, "G"),
-// ];
+const prevChildren = [
+  h("p", { key: "A" }, "A"),
+  h("p", { key: "B" }, "B"),
+  h("p", { key: "C", id: "c-prev" }, "C"),
+  h("p", { key: "D" }, "D"),
+  h("p", { key: "F" }, "F"),
+  h("p", { key: "G" }, "G"),
+];
 
-// const nextChildren = [
-//   h("p", { key: "A" }, "A"),
-//   h("p", { key: "B" }, "B"),
-//   h("p", { key: "E" }, "E"),
-//   h("p", { key: "C", id:"c-next" }, "C"),
-//   h("p", { key: "F" }, "F"),
-//   h("p", { key: "G" }, "G"),
-// ];
+const nextChildren = [
+  h("p", { key: "A" }, "A"),
+  h("p", { key: "B" }, "B"),
+  h("p", { key: "E" }, "E"),
+  h("p", { key: "C", id:"c-next" }, "C"),
+  h("p", { key: "F" }, "F"),
+  h("p", { key: "G" }, "G"),
+];
 
 // 5.1.1
 // a,b,(c,e,d),f,g

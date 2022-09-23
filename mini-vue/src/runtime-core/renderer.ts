@@ -174,14 +174,45 @@ export function createRenderer(options){
                 }
                 
             }
-        }else{
-            if(i > e2){//反过来 e1 i 没交叉，i e2 交叉了（老的比新的多）
+        }else if(i > e2){//反过来 e1 i 没交叉，i e2 交叉了（老的比新的多）
                 while(i<= e1){
                     hostRemove(c1[i].el)
                     i++
                 }
+        }else{// 都没交叉，都还有
+            let s1 = i
+            let s2 = i
+            
+            const keyToNewIndexMap = new Map();
+            for(let i = s2;i <= e2; i++){
+                const cur = c2[i]
+                keyToNewIndexMap.set(cur.key,i)// key => (中间)新位置 // 更快是 key 和 map 合力的优势， 让老的找到新的，更快捷
+            }
+
+            for(let i = s1;i <= e1; i++){// 开展主逻辑
+                const cur = c1[i]
+
+                let newIndex
+                if(cur.key != null){
+                    newIndex = keyToNewIndexMap.get(cur.key)// key 用来找到有复用关系的新节点(的位置)。准确度高于 isSameVNodeType 是 key 的优势
+                }else{
+                    for(let j = s2;j <= e2; j++){
+                        if(isSameVNodeType(cur,c2[j])){//?? 问题：旧[div1,div2] 新[div9] 都没有设置key，导致div1/div2都和div9构成复用关系，div1/div2都升级成div9怎么收场
+                            newIndex = j
+
+                            break
+                        }
+                    }
+                }
+
+                if(newIndex === undefined){
+                    hostRemove(cur.el)// 找不到和自己有复用关系的节点，就删除自己的实dom
+                }else{
+                    patch(cur,c2[newIndex],container,parentComponent,null)// 找到了就升级自己实dom
+                }
             }
         }
+        
     }
 
     function isSameVNodeType(n1,n2){

@@ -64,7 +64,7 @@ export function createRenderer(options){
     
                 patch(null,subTree,container,instance,anchor) // special!!
             
-                initialVNode.el = subTree.el
+                initialVNode.el = subTree.el 
 
                 instance.isMounted = true
             }else{
@@ -98,7 +98,7 @@ export function createRenderer(options){
         const oldProps = n1.props || EMPTY_OBJ
         const newProps = n2.props || EMPTY_OBJ
 
-        const el = n2.el = n1.el
+        const el = n2.el = n1.el // 日后 el 由新 vnode 管理
 
         patchChildren(n1,n2,el,parentComponent)
         patchProps(el,oldProps,newProps)
@@ -112,7 +112,7 @@ export function createRenderer(options){
 
         if(shapeFlag & ShapeFlags.TEXT_CHILDREN){
             if(prevShapeFlag & ShapeFlags.ARRAY_CHILDREN ){ // ArrayToText
-                unmountChildren(n1.children,container)
+                unmountChildren(n1.children,container)// 把老vnode上的dom从界面上删除
             } 
 
             if(c1 !== c2){// TextToText
@@ -137,17 +137,17 @@ export function createRenderer(options){
         let e1 = c1.length - 1
         let e2 = l2 - 1
 
-        while(i<= e1 && i <= e2){
+        while(i<= e1 && i <= e2){// 第一阶段：两侧isSameVNodeType的进行patch，直到遇到非isSameVNodeType的停下来
             const n1 = c1[i]
             const n2 = c2[i]
 
             if(isSameVNodeType(n1,n2)){
-                patch(n1,n2,container,parentComponent,null)
+                patch(n1,n2,container,parentComponent,null)// 新vnode夺取老vnode的dom，并基于自己修改dom的prop
             }else{
                 break
             }
 
-            i++;// 从左往右移：停在遇到的第一组不一样。此时假如不一样是因为老数组跑完了(交叉了)，新数组还有(没交叉)。就要把"还有的"新增
+            i++;// 从左往右移：停在遇到的第一组不一样
         }
         while(i <= e1 && i<= e2){
             const n1 = c1[e1]
@@ -169,39 +169,42 @@ export function createRenderer(options){
                 const nextPos = i + 1
                 const anchor = nextPos < l2 ? c2[nextPos].el : null // 此时已存在 c2[nextPos].el
                 while(i<= e2){
-                    patch(null,c2[i],container,parentComponent,anchor)// anchor 是兄弟实 dom、container 是父实dom、c2[i]是 vnode
+                    patch(null,c2[i],container,parentComponent,anchor)// container、anchor 是dom、c2[i]是 vnode
                     i++
                 }
                 
             }
         }else if(i > e2){//反过来 e1 i 没交叉，i e2 交叉了（老的比新的多）
                 while(i<= e1){
-                    hostRemove(c1[i].el)
+                    hostRemove(c1[i].el)// 把老vnode的dom从界面上删除
                     i++
                 }
         }else{// 都没交叉，都还有
-            let s1 = i
-            let s2 = i
+            const s1 = i
+            const s2 = i
             
             const toBePatched = e2 - i + 1;
             let patched = 0
-            const keyToNewIndexMap = new Map();
+            const keyToNewIndexMap = new Map();// key 是中间商，让老dom找到新vnode，更准确(准确度高于 isSameVNodeType)     
+
+            const newIndexToOldIndexMap = Array.from({length:toBePatched},_=>0)// map // 记录下新vnode对应的老dom (map值为零，表示没有老dom)
+
             for(let i = s2;i <= e2; i++){
                 const cur = c2[i]
-                keyToNewIndexMap.set(cur.key,i)// key => (中间)新位置 // 更快是 key 和 map 合力的优势， 让老的找到新的，更快捷
+                keyToNewIndexMap.set(cur.key,i)
             }
 
-            for(let i = s1;i <= e1; i++){// 开展主逻辑
+            for(let i = s1;i <= e1; i++){// 第二阶段：整理中间老dom (在界面上删除老dom、对有新vnode的老dom进行升级) (实现：循环中间老vnodes)
                 const cur = c1[i]
 
-                if(patched>=toBePatched){//?? 旧[div1,div2,div3] 新[div9,div8] 都没有设置key，导致div1/div2都升级成div9，而div3被删掉，怎么收场??
+                if(patched>=toBePatched){//?? 假如 旧[div1,div2,div3] 新[div9,div8] 都没有设置key，导致div9被div1、div2为原型升级(patch)了两次，div1没有从界面上删除怎么办??
                     hostRemove(cur.el)
                     continue
                 }
 
                 let newIndex
                 if(cur.key != null){
-                    newIndex = keyToNewIndexMap.get(cur.key)// key 用来找到有复用关系的新节点(的位置)。准确度高于 isSameVNodeType 是 key 的优势
+                    newIndex = keyToNewIndexMap.get(cur.key)
                 }else{
                     for(let j = s2;j <= e2; j++){
                         if(isSameVNodeType(cur,c2[j])){
@@ -213,10 +216,39 @@ export function createRenderer(options){
                 }
 
                 if(newIndex === undefined){
-                    hostRemove(cur.el)// 找不到和自己有复用关系的节点，就删除自己的实dom
+                    hostRemove(cur.el)// 在界面上删除老dom
                 }else{
-                    patch(cur,c2[newIndex],container,parentComponent,null)// 找到了就升级自己实dom
+                    patch(cur,c2[newIndex],container,parentComponent,null)// 新vnode夺取老vnode的dom，并基于自己修改dom的prop
                     patched++
+
+                    newIndexToOldIndexMap[newIndex - s2] = i + 1 // newIndex - s2 从零开始 // 新div9=>旧div2 新div8=>0
+                }
+            }
+
+            const increasingNewIndexSequence = getSequence(newIndexToOldIndexMap) // 过滤得到dom已经在正确位置的新vnode，相当于把这些vnode做了颜色标记
+            let j = increasingNewIndexSequence.length - 1
+
+            for(let i = toBePatched - 1;i >= 0; i--){// 第三阶段：循环新vnode (循环中间新vnode，在正确的位置建新dom、移动新vnode的dom到正确位置)
+                // 假如经过第二阶段后中间dom变为由新vnode控制的[b,www,c,a]。
+                // 现在第三阶段因为新vnode是[www,a,b,ef,mn,c](所以c、b不要移动，a、www要移动)，从c开始处理：
+                // c 是跳过，mn 在 c 后面做新建，ef 在 mn 后面做新建
+                // b 也跳过 (b 自然在 ef 后面)
+                // a 是从 c 前面移动 b 后面
+                // www 从 ef 后面移到 a 后面
+                const cur = i + s2 // vnode index
+                const curVnode = c2[cur]
+                const anchor = cur + 1 < l2 ? c2[cur + 1].el : null
+
+                if(newIndexToOldIndexMap[i] === 0){// 在正确的位置建新dom(并交由新vnode管理)
+                    patch(null,curVnode,container,parentComponent,anchor)
+
+                }else {
+                    if(i === increasingNewIndexSequence[j]){
+                        j--;continue;// 当相等时，进行一次消费 // 跳过不需要移动的vnode
+                    }
+
+                    hostInsert(curVnode.el,container,anchor)// 移动
+
                 }
             }
         }
@@ -260,7 +292,7 @@ export function createRenderer(options){
     
 
     function mountElement(vnode: any, container: any,parentComponent,anchor) {
-        const el = vnode.el = hostCreateElement(vnode.type) // 这里的 vnode 是element类型
+        const el = vnode.el = hostCreateElement(vnode.type) // 这里的 vnode 是element类型 // 日后 el 由 vnode 管理
     
         const { children,shapeFlag } = vnode
     
@@ -295,7 +327,7 @@ export function createRenderer(options){
     function processText(n1,n2: any, container: any) {
         const {children} = n2
     
-        const textNode = n2.el =  document.createTextNode(children)
+        const textNode = n2.el =  document.createTextNode(children) // 日后 el 由 vnode 管理
     
         container.append(textNode)
     }
@@ -311,3 +343,44 @@ export function createRenderer(options){
     }    
 }
 
+
+function getSequence(arr) {
+    const p = arr.slice();
+    const result = [0];
+    let i, j, u, v, c;
+    const len = arr.length;
+    for (i = 0; i < len; i++) {
+      const arrI = arr[i];
+      if (arrI !== 0) {
+        j = result[result.length - 1];
+        if (arr[j] < arrI) {
+          p[i] = j;
+          result.push(i);
+          continue;
+        }
+        u = 0;
+        v = result.length - 1;
+        while (u < v) {
+          c = (u + v) >> 1;
+          if (arr[result[c]] < arrI) {
+            u = c + 1;
+          } else {
+            v = c;
+          }
+        }
+        if (arrI < arr[result[u]]) {
+          if (u > 0) {
+            p[i] = result[u - 1];
+          }
+          result[u] = i;
+        }
+      }
+    }
+    u = result.length;
+    v = result[u - 1];
+    while (u-- > 0) {
+      result[u] = v;
+      v = p[v];
+    }
+    return result;
+  }

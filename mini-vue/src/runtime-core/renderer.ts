@@ -188,7 +188,9 @@ export function createRenderer(options){
             const keyToNewIndexMap = new Map();// key 是中间商，让老dom找到新vnode，更准确(准确度高于 isSameVNodeType)     
 
             const newIndexToOldIndexMap = Array.from({length:toBePatched},_=>0)// map // 记录下新vnode对应的老dom (map值为零，表示没有老dom)
-
+            let moved = false
+            let maxNewIndexSoFar = 0
+            
             for(let i = s2;i <= e2; i++){
                 const cur = c2[i]
                 keyToNewIndexMap.set(cur.key,i)
@@ -218,6 +220,12 @@ export function createRenderer(options){
                 if(newIndex === undefined){
                     hostRemove(cur.el)// 在界面上删除老dom
                 }else{
+
+                    if(newIndex >= maxNewIndexSoFar){
+                        maxNewIndexSoFar = newIndex
+                    }else{
+                        moved = true
+                    }
                     patch(cur,c2[newIndex],container,parentComponent,null)// 新vnode夺取老vnode的dom，并基于自己修改dom的prop
                     patched++
 
@@ -225,7 +233,7 @@ export function createRenderer(options){
                 }
             }
 
-            const increasingNewIndexSequence = getSequence(newIndexToOldIndexMap) // 过滤得到dom已经在正确位置的新vnode，相当于把这些vnode做了颜色标记
+            const increasingNewIndexSequence = moved ? getSequence(newIndexToOldIndexMap) : [] // 过滤得到dom已经在正确位置的新vnode，相当于把这些vnode做了颜色标记
             let j = increasingNewIndexSequence.length - 1
 
             for(let i = toBePatched - 1;i >= 0; i--){// 第三阶段：循环新vnode (循环中间新vnode，在正确的位置建新dom、移动新vnode的dom到正确位置)
@@ -243,12 +251,13 @@ export function createRenderer(options){
                     patch(null,curVnode,container,parentComponent,anchor)
 
                 }else {
-                    if(i === increasingNewIndexSequence[j]){
-                        j--;continue;// 当相等时，进行一次消费 // 跳过不需要移动的vnode
+                    if(moved){
+                        if(i === increasingNewIndexSequence[j]){
+                            j--;continue;// 当相等时，进行一次消费 // 跳过不需要移动的vnode
+                        }
+    
+                        hostInsert(curVnode.el,container,anchor)// 移动
                     }
-
-                    hostInsert(curVnode.el,container,anchor)// 移动
-
                 }
             }
         }

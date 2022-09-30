@@ -9,6 +9,7 @@ export function createComponentInstance(vnode,parent){// 组件是 vnode 的一�
     const instance = {
         vnode,
         type:vnode.type,
+        nextVNode:null,
         setupState:{},
         props:{}, // 和 vnode 的 props 是两码事
         slots:{},

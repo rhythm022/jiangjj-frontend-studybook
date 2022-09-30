@@ -4,7 +4,7 @@ import { effect } from "../reactivity"
 import { createComponentInstance, setupComponent } from "./component"
 import { createAppAPI } from "./createApp"
 import { Fragment,Text } from "./vnode"
-
+import {shouldUpdateComponent} from './componentUpdateUtils'
 
 export function createRenderer(options){
     const {
@@ -48,17 +48,32 @@ export function createRenderer(options){
     }
     
     function processComponent(n1,n2: any, container: any,parentComponent,anchor) {
-        mountComponent(n2,container,parentComponent,anchor)
+        if(!n1){
+            mountComponent(n2,container,parentComponent,anchor)
+        }else{
+            updateComponent(n1,n2)
+        }
+    }
+    function updateComponent(n1,n2){// n2是新生成的vnode
+        n2.componentInstance = n1.componentInstance
+        n2.el = n1.el
+
+        if(shouldUpdateComponent(n1,n2)){
+            const instance = n2.componentInstance
+            instance.nextVNode = n2
+            instance.update()
+        }
+       
     }
     function mountComponent(initialVNode: any,container,parentComponent,anchor) {
-        const instance = createComponentInstance(initialVNode,parentComponent)// 创建 {}空对象
+        const instance = initialVNode.componentInstance = createComponentInstance(initialVNode,parentComponent)// 创建 {}空对象
     
         setupComponent(instance) // init {}空对象
         setupRenderEffect(instance,initialVNode,container,anchor) // mount界面 // 界面渲染的入口
     }
     
     function setupRenderEffect(instance: any,initialVNode,container,anchor) {
-        effect(()=>{// 一个 setupResult，多个 subTree，因为多次都新调用 render
+        instance.update = effect(()=>{// 一个 setupResult，多个 subTree，因为多次都新调用 render
             if(!instance.isMounted){
                 const subTree = instance.subTree = instance.render.call(instance.proxy) // render函数 的上下文是 instance.proxy，这导致 subTree 中的 子vnode 的 props 来源可以是 父组件
     
@@ -68,6 +83,9 @@ export function createRenderer(options){
 
                 instance.isMounted = true
             }else{
+                if(instance.nextVNode){
+                    updateComponentPreRender(instance,instance.nextVNode)
+                }
                 const subTree = instance.render.call(instance.proxy) 
 
                 const prevSubTree = instance.subTree
@@ -80,7 +98,12 @@ export function createRenderer(options){
           
         })     
     }
-    
+    function updateComponentPreRender(instance,nextVNode){
+        instance.vnode = nextVNode
+        instance.nextVNode = null
+
+        instance.props = nextVNode.props // 当有新 vnode 就更新 instance.props
+    }
     function processElement(n1,n2: any, container: any,parentComponent,anchor) {
         if(!n1){
             mountElement(n2,container,parentComponent,anchor)

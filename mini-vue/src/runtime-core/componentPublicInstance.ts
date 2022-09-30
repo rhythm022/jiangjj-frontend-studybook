@@ -3,6 +3,7 @@ import { hasOwn } from "../../shared/index"
 const publicPropertiesMap = {
     $el : instance => instance.vnode.el,
     $slots : instance => instance.slots,
+    $props : instance => instance.props,
 }
 
 

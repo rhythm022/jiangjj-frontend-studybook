@@ -26,5 +26,5 @@ function queueFlush(){
 }
 
 export function nextTick(fn){
-    return p.then(fn)
+    return fn ? p.then(fn) : p
 }

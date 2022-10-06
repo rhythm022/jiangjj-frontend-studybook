@@ -11,20 +11,20 @@ export default {
     const count = ref(1);
     const instance = getCurrentInstance();
 
-    function onClick() {
+    async function onClick() {
       for (let i = 0; i < 100; i++) {
         console.log("update");
         count.value = i;
       }
 
-      // debugger;
       console.log(instance);
-      nextTick(() => {
-        console.log(instance);
-      });
-
-      // await nextTick()
-      // console.log(instance)
+      // nextTick(() => {
+      //   console.log(instance);
+      // });
+      
+      debugger;
+      await nextTick()
+      console.log(instance)
     }
 
     return {

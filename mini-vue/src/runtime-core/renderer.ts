@@ -84,6 +84,7 @@ export function createRenderer(options){
 
                 instance.isMounted = true
             }else{
+                console.log('vnode update')
                 if(instance.nextVNode){
                     updateComponentPreRender(instance,instance.nextVNode)
                 }

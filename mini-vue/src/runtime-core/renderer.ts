@@ -4,6 +4,7 @@ import { effect } from "../reactivity"
 import { createComponentInstance, setupComponent } from "./component"
 import { createAppAPI } from "./createApp"
 import { Fragment,Text } from "./vnode"
+import { queueJobs } from './scheduler'
 import {shouldUpdateComponent} from './componentUpdateUtils'
 
 export function createRenderer(options){
@@ -96,6 +97,11 @@ export function createRenderer(options){
 
             }
           
+        },
+        {
+            scheduler(){
+                queueJobs(instance.update)
+            }
         })     
     }
     function updateComponentPreRender(instance,nextVNode){
